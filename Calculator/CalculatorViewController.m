@@ -37,6 +37,8 @@
         self.display.text = [self.display.text
                              stringByAppendingString:digit];
     } else {
+// FIXME: Multiplying, adding, and subtracting zero are made impossible
+//  by this line.
         if (![digit isEqualToString:@"0"]) { // Prevent leading zeros
             self.display.text = digit;
             self.enteringANumber = YES;
@@ -63,6 +65,17 @@
                               stringByAppendingString:operation] stringByAppendingString:@" "];
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g", result];
+}
+
+- (IBAction)backspacePressed {
+    NSUInteger stringLength = [self.display.text length];
+    if (stringLength > 1) {
+        self.display.text = [self.display.text substringToIndex:
+                             (stringLength - 1)];
+    } else if (stringLength == 1) {
+        self.display.text = @"0";
+        self.enteringANumber = NO;
+    }
 }
 
 - (IBAction)clearPressed {
