@@ -62,7 +62,7 @@
     NSString *operation = sender.currentTitle;
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
     self.queueDisplay.text = [[self.queueDisplay.text
-                              stringByAppendingString:operation] stringByAppendingString:@" "];
+                              stringByAppendingString:operation] stringByAppendingString:@" = "];
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g", result];
 }
