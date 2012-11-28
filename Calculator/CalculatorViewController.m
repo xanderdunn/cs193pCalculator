@@ -17,28 +17,10 @@
 @property (nonatomic, strong) CalculatorBrain *brain;
 @end
 
-@interface QueueLabel : UILabel {
-
-}
--(void)setText:(NSString *)text;
-@end
-
-@implementation QueueLabel
-
--(void)setText:(NSString *)text {
-    self.text = text;
-}
-
-@end
-
 @implementation CalculatorViewController
 - (CalculatorBrain *)brain { // overload getter for lazy instantiation
     if (!_brain) _brain = [[CalculatorBrain alloc] init];
     return _brain;
-}
-
-- (void)setQueueDisplay:(UILabel *)value { // always insert a space
-    _queueDisplay = value;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -66,8 +48,8 @@
     double currentValue = [self.display.text doubleValue];
     [self.brain pushOperand:currentValue];
     // Add the number to the queue display
-    self.queueDisplay.text = [self.queueDisplay.text
-                         stringByAppendingString:self.display.text];
+    self.queueDisplay.text = [[self.queueDisplay.text
+                         stringByAppendingString:self.display.text] stringByAppendingString:@" "];
 //    self.queueDisplay.text = [self.queueDisplay.text
 //                              stringByAppendingString:@" "];
     self.enteringANumber = NO;
@@ -77,16 +59,18 @@
 - (IBAction)operationPressed:(UIButton *)sender {
     NSString *operation = sender.currentTitle;
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
-    self.queueDisplay.text = [self.queueDisplay.text
-                              stringByAppendingString:operation];
+    self.queueDisplay.text = [[self.queueDisplay.text
+                              stringByAppendingString:operation] stringByAppendingString:@" "];
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g", result];
 }
 
 - (IBAction)clearPressed {
-    // Clear self.display.text
-    // Clear self.queueDisplay.text
-    // Clear self.brain.stack
+    self.display.text = @"0";
+    self.queueDisplay.text = @"";
+    [self.brain clearStack];
+    self.enteredDecimal = NO;
+    self.enteringANumber = NO;
 }
 
 @end
