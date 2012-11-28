@@ -56,6 +56,12 @@
         result = sqrt([self popOperand]);
     } else if ([operation isEqualToString:@"π"]) {
         result = M_PI;
+    } else if ([operation isEqualToString:@"+/-"]) {
+        result = -1 * [self popOperand];
+    } else if ([operation isEqualToString:@"e"]) {
+        result = M_E;
+    } else if ([operation isEqualToString:@"log"]) {
+        result = log([self popOperand]);
     }
     [self pushOperand:result];
     

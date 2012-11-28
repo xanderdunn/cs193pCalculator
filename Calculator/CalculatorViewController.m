@@ -23,6 +23,10 @@
     return _brain;
 }
 
+// TODO: I could add an equal at the end every time an operation is pressed.
+//  Then, every time self.enteringANumber is set to YES, if
+//  self.queueDisplay.text contains @"=", then remove it from the string
+
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
     // NSLog(@"the user touched %@", digit);
@@ -31,18 +35,20 @@
             self.enteredDecimal = YES;
             self.enteringANumber = YES;
             self.display.text =
-            [self.display.text stringByAppendingString:digit];
+                [self.display.text stringByAppendingString:digit];
         }
     } else if(self.enteringANumber){ // append to existing number
         self.display.text = [self.display.text
                              stringByAppendingString:digit];
     } else {
-// FIXME: Multiplying, adding, and subtracting zero are made impossible
-//  by this line.
         if (![digit isEqualToString:@"0"]) { // Prevent leading zeros
             self.display.text = digit;
             self.enteringANumber = YES;
         }
+    }
+    if (self.enteringANumber) {
+        self.queueDisplay.text = [self.queueDisplay.text
+            stringByReplacingOccurrencesOfString:@"= " withString:@""];
     }
 }
 
@@ -52,14 +58,15 @@
     // Add the number to the queue display
     self.queueDisplay.text = [[self.queueDisplay.text
                          stringByAppendingString:self.display.text] stringByAppendingString:@" "];
-//    self.queueDisplay.text = [self.queueDisplay.text
-//                              stringByAppendingString:@" "];
     self.enteringANumber = NO;
+    self.display.text = @"0";
     self.enteredDecimal = NO;
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {
     NSString *operation = sender.currentTitle;
+    self.queueDisplay.text = [self.queueDisplay.text
+                              stringByReplacingOccurrencesOfString:@"= " withString:@""];
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
     self.queueDisplay.text = [[self.queueDisplay.text
                               stringByAppendingString:operation] stringByAppendingString:@" = "];
@@ -75,6 +82,15 @@
     } else if (stringLength == 1) {
         self.display.text = @"0";
         self.enteringANumber = NO;
+    }
+}
+- (IBAction)plusMinusPressed {
+    if (self.enteringANumber) {
+        double doubleValue = [self.display.text doubleValue] * -1;
+        self.display.text = [NSString stringWithFormat:@"%g", doubleValue];
+    } else {
+        double result = [self.brain performOperation:@"+/-"];
+        self.display.text = [NSString stringWithFormat:@"%g", result];
     }
 }
 
