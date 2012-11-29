@@ -23,10 +23,6 @@
     return _brain;
 }
 
-// TODO: I could add an equal at the end every time an operation is pressed.
-//  Then, every time self.enteringANumber is set to YES, if
-//  self.queueDisplay.text contains @"=", then remove it from the string
-
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
     // NSLog(@"the user touched %@", digit);

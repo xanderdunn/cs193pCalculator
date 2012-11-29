@@ -13,6 +13,10 @@
 @end
 
 @implementation CalculatorBrain
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@", self.operandStack];
+}
+
 - (NSMutableArray *)operandStack { // lazy instantiation
     if(!_operandStack) {
         _operandStack = [[NSMutableArray alloc] init];
