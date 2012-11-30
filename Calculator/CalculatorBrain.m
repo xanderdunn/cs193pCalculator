@@ -137,18 +137,20 @@
 + (double)runProgram:(id)program
  usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
-    
+    NSLog(@"The program is: %@", program);
     NSMutableArray *mutableProgram = nil;
     
     int i = 0;
     
-    if ([program isKindOfClass:[NSArray class]]) { // NSArray introspection
+    if ([program isKindOfClass:[NSArray class]]) { // NSArray?
         mutableProgram = [program mutableCopy];
         for (i = 0; i < [mutableProgram count]; i++) { // Enumerate elements
             id obj = [program objectAtIndex:i];
-            if ([obj isKindOfClass:[NSString class]]) { // NSString case
+            if ([obj isKindOfClass:[NSString class]]) { // NSString?
                 if ([usedVariables containsObject:obj]) { // variable?
-                    [mutableProgram replaceObjectAtIndex:i withObject:[variableValues objectForKey:obj]];
+                    if ([variableValues objectForKey:obj]) { // defined var?
+                        [mutableProgram replaceObjectAtIndex:i withObject:[variableValues objectForKey:obj]];
+                    }
                 }
             }
         }
