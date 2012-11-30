@@ -24,24 +24,24 @@
 }
 
 - (IBAction)operandPressed:(UIButton *)sender {
-    NSString *digit = sender.currentTitle;
-    if ([digit isEqualToString:@"."]) {
+    NSString *operand = sender.currentTitle;
+    if ([operand isEqualToString:@"."]) {
         if (!self.enteredDecimal) { // Prevent multiple decimals
             self.enteredDecimal = YES;
             self.enteringANumber = YES;
             self.display.text =
-                [self.display.text stringByAppendingString:digit];
+                [self.display.text stringByAppendingString:operand];
         }
     } else if(self.enteringANumber){ // append to existing number
         self.display.text = [self.display.text
-                             stringByAppendingString:digit];
+                             stringByAppendingString:operand];
     } else {
-        if (![digit isEqualToString:@"0"]) { // Prevent leading zeros
-            self.display.text = digit;
+        if (![operand isEqualToString:@"0"]) { // Prevent leading zeros
+            self.display.text = operand;
             self.enteringANumber = YES;
         }
     }
-    if (self.enteringANumber) {
+    if (self.enteringANumber) { // Add the trailing "= "
         self.queueDisplay.text = [self.queueDisplay.text
             stringByReplacingOccurrencesOfString:@"= " withString:@""];
     }

@@ -30,13 +30,6 @@
     [self.programStack addObject:operandObject];
 }
 
-// We don't want to remove items from the array in the programmable calculator.
-//- (double)popOperand {
-//    NSNumber *operandObject = [self.operandStack lastObject];
-//    if (operandObject) [self.operandStack removeLastObject];
-//    return [operandObject doubleValue];
-//}
-
 -(void)clearStack {
     [self.programStack removeAllObjects];
 }
@@ -71,10 +64,10 @@
     } else if ([topOfStack isKindOfClass:[NSString class]]) {
         if([topOfStack isEqualToString:@"+"]) {
             result = [self popOperandOffStack:stack] +
-                     [self popOperandOffStack:stack];
+            [self popOperandOffStack:stack];
         } else if ([topOfStack isEqualToString:@"*"]) {
             result = [self popOperandOffStack:stack] *
-                     [self  popOperandOffStack:stack];
+            [self  popOperandOffStack:stack];
         } else if ([topOfStack isEqualToString:@"-"]) {
             double subtrahend = [self popOperandOffStack:stack];
             result = [self popOperandOffStack:stack] - subtrahend;
@@ -109,14 +102,6 @@
     }
     return [self popOperandOffStack:stack];
 }
-//    double result = 0;
-
-+ (double)runProgram:(id)program
- usingVariableValues:(NSDictionary *)variableValues {
-    // Get the NSMutableArray storing the program and replace the values
-    //  using the given dictionary.
-    return [self runProgram:program];
-}
 
 + (NSSet *)variablesUsedInProgram:(id)program {
     NSOrderedSet *operations = [NSOrderedSet orderedSetWithObjects:
@@ -130,6 +115,7 @@
         for (id obj in program) {
             if ([obj isKindOfClass:[NSString class]]) {
                 if (![operations containsObject:obj]) {
+                    // FIXME: Does this alloc and init?
                     variables = [variables setByAddingObject:obj];
                 }
             }
@@ -137,6 +123,27 @@
     }
     NSLog(@"%@", variables);
     return variables;
+}
+
++ (double)runProgram:(id)program
+ usingVariableValues:(NSDictionary *)variableValues {
+    NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
+    
+    int i = 0;
+    
+    if ([program isKindOfClass:[NSArray class]]) {
+        NSMutableArray *mutableProgram = [program mutableCopy];
+        for (i = 0; i < [mutableProgram count]; i++) {
+            id obj = [program objectAtIndex:i];
+            if ([obj isKindOfClass:[NSString class]]) {
+                if ([usedVariables containsObject:obj]) {
+                    // FIXME: Does this syntax correctly set the array value?
+                    program[i] = [variableValues objectForKey:obj];
+                }
+            }
+        }
+    }
+    return [self runProgram:program];
 }
 
 // TODO: Create an NSDictionary which functions as a dictionary for storing
