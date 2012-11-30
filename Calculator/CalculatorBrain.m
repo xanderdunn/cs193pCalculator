@@ -19,33 +19,40 @@
 }
 
 - (NSMutableArray *)programStack { // lazy instantiation
-    if(!_programStack) {
-        _programStack = [[NSMutableArray alloc] init];
-    }
+    if(!_programStack) _programStack = [[NSMutableArray alloc] init];
     return _programStack;
 }
 
-- (void)pushOperand:(double)operand {
-    NSNumber *operandObject = [NSNumber numberWithDouble:operand];
-    [self.programStack addObject:operandObject];
+- (void)pushOperand:(id)operand {
+    [self.programStack addObject:operand];
 }
 
+// Get an empty stack
 -(void)clearStack {
     [self.programStack removeAllObjects];
 }
 
-- (double)performOperation:(NSString *)operation{
+// FIXME: Is there any way to get the dictionary of variables without
+- (double)performOperation:(NSString *)operation
+            usingVariables:(NSDictionary *)variableValues {
     
     [self.programStack addObject:operation];
-    return [CalculatorBrain runProgram:self.program];
+    return [CalculatorBrain runProgram:self.program usingVariableValues:variableValues];
 }
 
+// Make an immutable copy of the stack so that it can be consumed
 - (id)program {
     return [self.programStack copy];
     
 }
 
+// Format an intelligent string describing the math operations
 + (NSString *)descriptionOfProgram:(id)program {
+    
+    if ([program isKindOfClass:[NSArray class]]) { // NSArray?
+        // recursively consume the array
+    }
+    
     // TODO: Return an intelligent description
     // Iterate through elements of the array
     // If NSString, print.
@@ -53,6 +60,7 @@
     return @"";
 }
 
+// Recursively evaluate an operand stack
 + (double)popOperandOffStack:(NSMutableArray *)stack {
     double result = 0;
     
@@ -95,6 +103,7 @@
     return result;
 }
 
+// Evaluates a program without variables
 + (double)runProgram:(id)program {
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
@@ -103,51 +112,48 @@
     return [self popOperandOffStack:stack];
 }
 
+// Produces an NSSet of NSString's which are the variables used in the program
 + (NSSet *)variablesUsedInProgram:(id)program {
     NSOrderedSet *operations = [NSOrderedSet orderedSetWithObjects:
                                 @"+", @"*", @"-", @"/", @"sin", @"cos", @"sqrt",
                                 @"π", @"+/-", @"e", @"log", nil];
     
-    // FIXME: Do I need to do alloc init here?
-    NSSet *variables = nil;
+    NSSet *variables = [[NSSet alloc] init];
     
     if ([program isKindOfClass:[NSArray class]]) {
         for (id obj in program) {
             if ([obj isKindOfClass:[NSString class]]) {
                 if (![operations containsObject:obj]) {
-                    // FIXME: Does this alloc and init?
                     variables = [variables setByAddingObject:obj];
                 }
             }
         }
     }
-    NSLog(@"%@", variables);
     return variables;
 }
 
+// Evaluates a program by substituting variable values and then calling
+//  runProgram
 + (double)runProgram:(id)program
  usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
     
+    NSMutableArray *mutableProgram = nil;
+    
     int i = 0;
     
-    if ([program isKindOfClass:[NSArray class]]) {
-        NSMutableArray *mutableProgram = [program mutableCopy];
-        for (i = 0; i < [mutableProgram count]; i++) {
+    if ([program isKindOfClass:[NSArray class]]) { // NSArray introspection
+        mutableProgram = [program mutableCopy];
+        for (i = 0; i < [mutableProgram count]; i++) { // Enumerate elements
             id obj = [program objectAtIndex:i];
-            if ([obj isKindOfClass:[NSString class]]) {
-                if ([usedVariables containsObject:obj]) {
-                    // FIXME: Does this syntax correctly set the array value?
-                    program[i] = [variableValues objectForKey:obj];
+            if ([obj isKindOfClass:[NSString class]]) { // NSString case
+                if ([usedVariables containsObject:obj]) { // variable?
+                    [mutableProgram replaceObjectAtIndex:i withObject:[variableValues objectForKey:obj]];
                 }
             }
         }
     }
-    return [self runProgram:program];
+    return [self runProgram:[mutableProgram copy]];
 }
-
-// TODO: Create an NSDictionary which functions as a dictionary for storing
-//  possible operands and their corresponding
-// Dictionary to store all possible operations and their corresponding methods
 
 @end
