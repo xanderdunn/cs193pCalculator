@@ -10,6 +10,7 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *programStack;
+//@property (nonatomic, strong) NSDictionary *variables;
 @end
 
 @implementation CalculatorBrain
@@ -89,7 +90,9 @@
         } else if ([topOfStack isEqualToString:@"π"]) {
             result = M_PI;
         } else if ([topOfStack isEqualToString:@"+/-"]) {
-            result = -1 * [self popOperandOffStack:stack];
+            double digit = [self popOperandOffStack:stack];
+            if (!digit) result = 0; // Prevent -0
+            else result = -1 * digit;
         } else if ([topOfStack isEqualToString:@"e"]) {
             result = M_E;
         } else if ([topOfStack isEqualToString:@"log"]) {
@@ -106,6 +109,38 @@
     }
     return [self popOperandOffStack:stack];
 }
-    double result = 0;
+//    double result = 0;
+
++ (double)runProgram:(id)program
+ usingVariableValues:(NSDictionary *)variableValues {
+    // Get the NSMutableArray storing the program and replace the values
+    //  using the given dictionary.
+    return [self runProgram:program];
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program {
+    NSOrderedSet *operations = [NSOrderedSet orderedSetWithObjects:
+                                @"+", @"*", @"-", @"/", @"sin", @"cos", @"sqrt",
+                                @"π", @"+/-", @"e", @"log", nil];
+    
+    // FIXME: Do I need to do alloc init here?
+    NSSet *variables = nil;
+    
+    if ([program isKindOfClass:[NSArray class]]) {
+        for (id obj in program) {
+            if ([obj isKindOfClass:[NSString class]]) {
+                if (![operations containsObject:obj]) {
+                    variables = [variables setByAddingObject:obj];
+                }
+            }
+        }
+    }
+    NSLog(@"%@", variables);
+    return variables;
+}
+
+// TODO: Create an NSDictionary which functions as a dictionary for storing
+//  possible operands and their corresponding
+// Dictionary to store all possible operations and their corresponding methods
 
 @end

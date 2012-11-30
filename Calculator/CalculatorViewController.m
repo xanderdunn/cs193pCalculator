@@ -23,9 +23,8 @@
     return _brain;
 }
 
-- (IBAction)digitPressed:(UIButton *)sender {
+- (IBAction)operandPressed:(UIButton *)sender {
     NSString *digit = sender.currentTitle;
-    // NSLog(@"the user touched %@", digit);
     if ([digit isEqualToString:@"."]) {
         if (!self.enteredDecimal) { // Prevent multiple decimals
             self.enteredDecimal = YES;
