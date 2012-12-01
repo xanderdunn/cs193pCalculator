@@ -69,6 +69,15 @@
     id operation = nil;
     int i = 0;
     
+    // TODO: Suppress parentheses for single operation of something already
+    //  in parentheses: log((5+2))
+    // TODO: Suppress parentheses for top-level operations that are not
+    //  operated on.  Ex.: (3 + 5)
+    // Do I ever need parantheses at the beginning of an item?
+    // If operation == "*" OR operation == "/", result has no parentheses
+    
+    // FIXME: This recursive implementation is messy.
+    
     for (i = 0; i < [program count]; i++) {
         operation = [program objectAtIndex:i];
         if ([twoOperandOperations containsObject:operation]) {
@@ -90,9 +99,20 @@
             // Convert NSNumber's to NSString
             operandA = [NSString stringWithFormat: @"%@", operandA];
             operandB = [NSString stringWithFormat:@"%@", operandB];
-            NSString *formattedString = [NSString stringWithFormat:
-                                         @"(%@ %@ %@)",
-                                         operandB, operation, operandA];
+            
+            NSString *formattedString = nil;
+            
+            if ([operation isEqualToString:@"*"] ||
+                [operation isEqualToString:@"/"]) {
+                formattedString = [NSString stringWithFormat:
+                                             @"%@ %@ %@",
+                                             operandB, operation, operandA];
+
+            } else   {
+                formattedString = [NSString stringWithFormat:
+                                             @"(%@ %@ %@)",
+                                             operandB, operation, operandA];
+            }
             [program replaceObjectAtIndex:i withObject:formattedString];
             result = [CalculatorBrain formattedProgram:program];
         } else if ([oneOperandOperations containsObject:operation]) {
@@ -120,6 +140,15 @@
     NSString *result = @"";
     
     NSMutableArray *formatedProgram = [CalculatorBrain formattedProgram:[program mutableCopy]];
+    
+    //NSRange *testRange = [NSRange ];
+    
+    for (NSString* string in formatedProgram) {
+        //if (string begins with "(") { // Remove first and last parentheses
+            //[string stringByReplacingCharactersInRange:[NSRange ] withString:@""];
+            //[string stringByReplacingCharactersInRange:<#(NSRange)#> withString:@""];
+        //}
+    }
     
     for (int i = 0; i < [formatedProgram count] - 1; i++) { // comma-separated NSString
         result = [result stringByAppendingFormat:@"%@, ",

@@ -16,17 +16,49 @@
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSDictionary *testVariableValues;
+@property (weak, nonatomic) IBOutlet UILabel *variablesDisplay;
+@property (nonatomic) int testVariableSetNumber;
 @end
 
 @implementation CalculatorViewController
 
+- (IBAction)testButtonPushed:(UIButton *)sender {
+    NSString *testTitle = sender.currentTitle;
+    testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test " withString:@""];
+    self.testVariableSetNumber = [testTitle intValue];
+    [self updateVariablesDisplay];
+}
+
+- (void) updateVariablesDisplay {
+    NSSet *usedVariables = [CalculatorBrain variablesUsedInProgram:self.brain.program];
+    
+    NSString *displayString = @"";
+    
+    for (NSString *variable in usedVariables) {
+        id value = [self.testVariableValues objectForKey:variable];
+        if (value == nil) {
+            value = [NSNumber numberWithInt:0];
+        }
+        displayString = [displayString stringByAppendingFormat:@"%@ = %@   ",
+                         variable, value];
+    }
+    self.variablesDisplay.text = displayString;
+}
+
 // Define the test variable values
 - (NSDictionary *)testVariableValues {
-    if (!_testVariableValues) _testVariableValues =
-                               [NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSNumber numberWithDouble:5], @"x",
-                               [NSNumber numberWithDouble:6], @"y",
-                               [NSNumber numberWithDouble:7], @"z", nil];
+    if (self.testVariableSetNumber == 1) _testVariableValues =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         [NSNumber numberWithDouble:-22.67], @"x",
+         [NSNumber numberWithDouble:1000000], @"y",
+         [NSNumber numberWithDouble:0], @"z", nil];
+    else if (self.testVariableSetNumber == 2) _testVariableValues =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         [NSNumber numberWithDouble:5], @"foo",
+         [NSNumber numberWithDouble:6], @"bling",
+         [NSNumber numberWithDouble:7], @"z", nil];
+    else if (self.testVariableSetNumber == 3) _testVariableValues = nil;
+    
     return _testVariableValues;
 }
 
@@ -43,7 +75,7 @@
             self.enteredDecimal = YES;
             self.enteringANumber = YES;
             self.display.text =
-                [self.display.text stringByAppendingString:operand];
+            [self.display.text stringByAppendingString:operand];
         }
     } else if(self.enteringANumber){ // append to existing number
         self.display.text = [self.display.text
@@ -55,9 +87,10 @@
         }
     }
     NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
-                               [NSCharacterSet decimalDigitCharacterSet]];
+                                       [NSCharacterSet decimalDigitCharacterSet]];
     if (![operandWithoutNumbers isEqualToString:@""]) { // enter if variable
         [self enterPressed];
+        [self updateVariablesDisplay];
     }
 }
 
@@ -89,7 +122,7 @@
 }
 
 // Remove digits from the display
-- (IBAction)backspacePressed {
+- (IBAction)undoPressed {
     NSUInteger stringLength = [self.display.text length];
     if (stringLength > 1) {
         self.display.text = [self.display.text substringToIndex:
@@ -119,6 +152,7 @@
     [self.brain clearStack];
     self.enteredDecimal = NO;
     self.enteringANumber = NO;
+    [self updateVariablesDisplay];
 }
 
 @end
