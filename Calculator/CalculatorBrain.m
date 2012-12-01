@@ -167,21 +167,14 @@
     
     NSMutableArray *formatedProgram = [CalculatorBrain formattedProgram:[program mutableCopy]];
     
-    //NSRange *testRange = [NSRange ];
-    
-    for (NSString* string in formatedProgram) {
-        //if (string begins with "(") { // Remove first and last parentheses
-        //[string stringByReplacingCharactersInRange:[NSRange ] withString:@""];
-        //[string stringByReplacingCharactersInRange:<#(NSRange)#> withString:@""];
-        //}
-    }
-    
-    for (int i = 0; i < [formatedProgram count] - 1; i++) { // comma-separated NSString
+    NSUInteger count = [formatedProgram count];
+    for (int i = count - 1; i > 0; i--) { // comma-separated NSString
         result = [result stringByAppendingFormat:@"%@, ",
                   [formatedProgram objectAtIndex:i]];
     }
     // No comma for the last object
-    return [result stringByAppendingFormat:@"%@", [formatedProgram lastObject]];
+    return [result stringByAppendingFormat:@"%@", [formatedProgram
+                                                   objectAtIndex:0]];
     
 }
 

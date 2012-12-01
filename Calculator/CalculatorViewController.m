@@ -126,13 +126,25 @@
 
 // Remove digits from the display
 - (IBAction)undoPressed {
-    NSUInteger stringLength = [self.display.text length];
-    if (stringLength > 1) {
-        self.display.text = [self.display.text substringToIndex:
-                             (stringLength - 1)];
-    } else if (stringLength == 1) {
-        self.display.text = @"0";
-        self.enteringANumber = NO;
+    if (self.enteringANumber) {
+        NSUInteger stringLength = [self.display.text length];
+        if (stringLength > 1) {
+            self.display.text = [self.display.text substringToIndex:
+                                 (stringLength - 1)];
+        } else if (stringLength == 1) {
+            double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+            self.display.text = [NSString stringWithFormat:@"%g", result];
+            self.enteringANumber = NO;
+        }
+    } else { // not entering a number
+        // TODO: Create an instnace method for updating the programDisplay
+        //  and for updating the display.text.  Call these methods rather
+        //  than repeating the below code.
+        // Remove the top item from the stack
+        double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+        self.display.text = [NSString stringWithFormat:@"%g", result];
+        self.programDisplay.text = [self.brain updateProgramDescription];
+        [self updateVariablesDisplay];
     }
 }
 
