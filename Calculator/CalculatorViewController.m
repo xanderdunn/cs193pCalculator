@@ -33,6 +33,7 @@
 
 - (IBAction)testButtonPushed:(UIButton *)sender {
     NSString *testTitle = sender.currentTitle;
+    // FIXME: More elegant way of getting the last character in the NSString
     testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test "
                                                      withString:@""];
     self.testVariableSetNumber = [testTitle intValue];
@@ -88,19 +89,18 @@
             self.display.text =
             [self.display.text stringByAppendingString:operand];
         }
-    } else if(self.enteringANumber){ // append to existing number
+    } else if (self.enteringANumber){ // append to existing number
         self.display.text = [self.display.text
                              stringByAppendingString:operand];
-    } else {
-        if (![operand isEqualToString:@"0"]) { // Prevent leading zeros
+    } else if (![operand isEqualToString:@"0"]) { // Prevent leading zeros
             self.display.text = operand;
             self.enteringANumber = YES;
         }
-    }
     NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
                                        [NSCharacterSet
                                         decimalDigitCharacterSet]];
-    if (![operandWithoutNumbers isEqualToString:@""]) { // enter if variable
+    if (![operandWithoutNumbers isEqualToString:@""] &&
+        ![operand isEqualToString:@"."]) { // enter if variable
         [self enterPressed];
         [self updateVariablesDisplay];
     }

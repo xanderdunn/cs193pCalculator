@@ -248,6 +248,10 @@
     return variables;
 }
 
+// FIXME: Decimal numbers are being treated as variables
+// FIXME: Currently, I allow no zeros while notEnteringNumber.  I should
+//  allow one zero.
+
 // Evaluates a program by substituting variable values and then calling
 //  runProgram
 + (id)runProgram:(id)program
@@ -272,9 +276,7 @@
     
     double result = [self runProgram:[mutableProgram copy]];
     
-    if (result == NAN) {
-        return @"NaN";
-    } else return [NSNumber numberWithDouble:result];
+    return [NSNumber numberWithDouble:result];
 }
 
 @end
