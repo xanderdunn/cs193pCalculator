@@ -22,17 +22,16 @@
     return _programStack;
 }
 
-- (void)pushOntoStack:(id)object {
+- (void)pushOntoStack:(id)object { // add to programStack
+    // at this point, all numbers should be converted to NSNumber
     [self.programStack addObject:object];
 }
 
-// Empty the stack
--(void)clearStack {
+-(void)clearStack { // empty stack
     [self.programStack removeAllObjects];
 }
 
-// Make an immutable copy of the stack so that it can be consumed
-- (id)program {
+- (id)program { // program is immutable copy of programStack
     return [self.programStack copy];
     
 }

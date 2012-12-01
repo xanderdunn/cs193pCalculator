@@ -40,7 +40,7 @@
     [self updateDisplay];
 }
 
-- (void) updateVariablesDisplay {
+- (void) updateVariablesDisplay { // update label at bottom showing used vars
     NSSet *usedVariables = [CalculatorBrain
                             variablesUsedInProgram:self.brain.program];
     
@@ -57,8 +57,7 @@
     self.variablesDisplay.text = displayString;
 }
 
-// Define the test variable values
-- (NSDictionary *)testVariableValues {
+- (NSDictionary *)testVariableValues { // define test variables
     if (self.testVariableSetNumber == 1) _testVariableValues =
         [NSDictionary dictionaryWithObjectsAndKeys:
          [NSNumber numberWithDouble:-22.67], @"x",
@@ -110,25 +109,24 @@
     }
 }
 
-// Store the entered digits on the stack
-- (IBAction)enterPressed {
+- (IBAction)enterPressed { // store the digits on the stack
     NSNumber *currentValue = [NSNumber numberWithDouble:
-                    [self.display.text doubleValue]];
+                              [self.display.text doubleValue]];
     [self.brain pushOntoStack:currentValue];
     [self updateDisplay];
     self.enteringANumber = NO;
     self.enteredDecimal = NO;
 }
 
-// Perform operations and update the display
-- (IBAction)operationPressed:(UIButton *)sender {
+- (IBAction)operationPressed:(UIButton *)sender { // add operation to stack
     NSString *operation = sender.currentTitle;
+    [self.brain pushOntoStack:[NSNumber numberWithDouble:
+                               [self.display.text doubleValue]]];
     [self.brain pushOntoStack:operation];
     [self updateDisplay];
 }
 
-// Remove digits from the display
-- (IBAction)undoPressed {
+- (IBAction)undoPressed { // remove digits from the display
     if (self.enteringANumber) {
         NSUInteger stringLength = [self.display.text length];
         if (stringLength > 1) {
@@ -144,8 +142,7 @@
     }
 }
 
-// Alter sign of the displayed number or last stacked number
-- (IBAction)plusMinusPressed {
+- (IBAction)plusMinusPressed { // switch sign of displayed number
     if (self.enteringANumber) {
         double doubleValue = [self.display.text doubleValue] * -1;
         self.display.text = [NSString stringWithFormat:@"%g", doubleValue];
@@ -155,8 +152,7 @@
     }
 }
 
-// reset
-- (IBAction)clearPressed {
+- (IBAction)clearPressed { // reset
     [self.brain clearStack];
     self.enteredDecimal = NO;
     self.enteringANumber = NO;
