@@ -104,21 +104,16 @@
                                        [NSCharacterSet
                                         decimalDigitCharacterSet]];
     if (![operandWithoutNumbers isEqualToString:@""] &&
-        ![operand isEqualToString:@"."]) { // enter if variable
-        [self enterPressed];
-        [self updateVariablesDisplay];
+        ![operand isEqualToString:@"."]) { // it is a variable
+        [self.brain pushOntoStack:operand];
+        [self updateDisplay];
     }
 }
 
 // Store the entered digits on the stack
 - (IBAction)enterPressed {
-    id currentValue = self.display.text;
-    NSString *testString = [currentValue stringByTrimmingCharactersInSet:
-                            [NSCharacterSet decimalDigitCharacterSet]];
-    if ([testString isEqualToString:@""]) {
-        currentValue = [NSNumber numberWithDouble:
-                        [self.display.text doubleValue]];
-    }
+    NSNumber *currentValue = [NSNumber numberWithDouble:
+                    [self.display.text doubleValue]];
     [self.brain pushOntoStack:currentValue];
     [self updateDisplay];
     self.enteringANumber = NO;
@@ -128,10 +123,8 @@
 // Perform operations and update the display
 - (IBAction)operationPressed:(UIButton *)sender {
     NSString *operation = sender.currentTitle;
-    if (self.enteringANumber) [self enterPressed]; // Auto evaluate
     [self.brain pushOntoStack:operation];
     [self updateDisplay];
-    //self.display.text = [NSString stringWithFormat:@"%@", result];
 }
 
 // Remove digits from the display

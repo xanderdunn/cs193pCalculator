@@ -196,7 +196,7 @@
             result = cos([self popOperandOffStack:stack]);
         } else if ([topOfStack isEqualToString:@"sqrt"]) {
             double operand = [self popOperandOffStack:stack];
-            if (operand) result = sqrt(operand);
+            if (operand >= 0) result = sqrt(operand);
             else result = NAN;
         } else if ([topOfStack isEqualToString:@"π"]) {
             result = M_PI;
@@ -248,8 +248,10 @@
     return variables;
 }
 
-// FIXME: Decimal numbers are being treated as variables
+// FIXME: Decimal numbers are not converted to NSNumber/double, but remain
+//  as NSString
 // FIXME: Zeros are not treated as numbers, but as nan.  Ex.: 222 E 0 +
+// All double operations produce a nan
 
 // Evaluates a program by substituting variable values and then calling
 //  runProgram
