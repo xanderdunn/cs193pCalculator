@@ -120,10 +120,13 @@
 
 - (IBAction)operationPressed:(UIButton *)sender { // add operation to stack
     NSString *operation = sender.currentTitle;
-    [self.brain pushOntoStack:[NSNumber numberWithDouble:
-                               [self.display.text doubleValue]]];
+    if (self.enteringANumber) {
+        [self.brain pushOntoStack:[NSNumber numberWithDouble:
+                                   [self.display.text doubleValue]]];
+    }
     [self.brain pushOntoStack:operation];
     [self updateDisplay];
+    self.enteringANumber = NO;
 }
 
 - (IBAction)undoPressed { // remove digits from the display

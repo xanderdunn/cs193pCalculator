@@ -247,8 +247,6 @@
     return variables;
 }
 
-// FIXME: Decimal numbers are not converted to NSNumber/double, but remain
-//  as NSString
 // FIXME: Zeros are not treated as numbers, but as nan.  Ex.: 222 E 0 +
 // All double operations produce a nan
 
