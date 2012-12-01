@@ -24,13 +24,15 @@
 
 - (IBAction)testButtonPushed:(UIButton *)sender {
     NSString *testTitle = sender.currentTitle;
-    testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test " withString:@""];
+    testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test "
+                                                     withString:@""];
     self.testVariableSetNumber = [testTitle intValue];
     [self updateVariablesDisplay];
 }
 
 - (void) updateVariablesDisplay {
-    NSSet *usedVariables = [CalculatorBrain variablesUsedInProgram:self.brain.program];
+    NSSet *usedVariables = [CalculatorBrain
+                            variablesUsedInProgram:self.brain.program];
     
     NSString *displayString = @"";
     
@@ -87,7 +89,8 @@
         }
     }
     NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
-                                       [NSCharacterSet decimalDigitCharacterSet]];
+                                       [NSCharacterSet
+                                        decimalDigitCharacterSet]];
     if (![operandWithoutNumbers isEqualToString:@""]) { // enter if variable
         [self enterPressed];
         [self updateVariablesDisplay];
