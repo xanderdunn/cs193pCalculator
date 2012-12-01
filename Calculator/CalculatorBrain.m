@@ -52,7 +52,6 @@
 // Process all values in a program, turning it into an array of one single
 //
 + (NSMutableArray *)formattedProgram:(NSMutableArray *)program {
-    NSLog(@"program = %@", program);
     NSMutableArray *result = program;
     
     // Set of operations taking two operands
@@ -102,17 +101,44 @@
             
             NSString *formattedString = nil;
             
-            if ([operation isEqualToString:@"*"] ||
-                [operation isEqualToString:@"/"]) {
-                formattedString = [NSString stringWithFormat:
-                                             @"%@ %@ %@",
-                                             operandB, operation, operandA];
-
-            } else   {
-                formattedString = [NSString stringWithFormat:
-                                             @"(%@ %@ %@)",
-                                             operandB, operation, operandA];
+            // FIXME: Rather than checking to see if operandA or operandB
+            //  contains a + or - anywhere, check to see that the first
+            //  operation contained in the string is a + or -
+            
+            // FIXME: Implement this using methods from outside this function
+            
+            // If operandA contains + or -, then put () around it
+            NSCharacterSet *operandAChars = [NSCharacterSet
+                                             characterSetWithCharactersInString:
+                                             operandA];
+            
+            NSCharacterSet *operandBChars = [NSCharacterSet
+                                             characterSetWithCharactersInString:
+                                             operandB];
+            
+            NSCharacterSet *plusChar = [NSCharacterSet
+                                        characterSetWithCharactersInString:
+                                        @"+-"];
+            
+            NSCharacterSet *minusChar = [NSCharacterSet
+                                         characterSetWithCharactersInString:
+                                         @"-"];
+            
+            // Parenthesis around + or - operations in operandA
+            if ([operandAChars isSupersetOfSet:plusChar] ||
+                [operandAChars isSupersetOfSet:minusChar]) {
+                formattedString = [NSString stringWithFormat:@"%@ %@ (%@)",
+                                   operandB, operation, operandA];
             }
+            // Parenthesis around + or - operations in operandB
+            else if ([operandBChars isSupersetOfSet:plusChar] ||
+                     [operandBChars isSupersetOfSet:minusChar]) {
+                formattedString = [NSString stringWithFormat:@"(%@) %@ %@",
+                                   operandB, operation, operandA];
+                
+            } else formattedString = [NSString stringWithFormat:@"%@ %@ %@",
+                                      operandB, operation, operandA];
+            
             [program replaceObjectAtIndex:i withObject:formattedString];
             result = [CalculatorBrain formattedProgram:program];
         } else if ([oneOperandOperations containsObject:operation]) {
@@ -145,15 +171,14 @@
     
     for (NSString* string in formatedProgram) {
         //if (string begins with "(") { // Remove first and last parentheses
-            //[string stringByReplacingCharactersInRange:[NSRange ] withString:@""];
-            //[string stringByReplacingCharactersInRange:<#(NSRange)#> withString:@""];
+        //[string stringByReplacingCharactersInRange:[NSRange ] withString:@""];
+        //[string stringByReplacingCharactersInRange:<#(NSRange)#> withString:@""];
         //}
     }
     
     for (int i = 0; i < [formatedProgram count] - 1; i++) { // comma-separated NSString
         result = [result stringByAppendingFormat:@"%@, ",
                   [formatedProgram objectAtIndex:i]];
-        NSLog(@"result = %@", result);
     }
     // No comma for the last object
     return [result stringByAppendingFormat:@"%@", [formatedProgram lastObject]];
