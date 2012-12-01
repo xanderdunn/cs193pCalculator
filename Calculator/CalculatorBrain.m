@@ -123,7 +123,8 @@
     
     for (int i = 0; i < [formatedProgram count] - 1; i++) { // comma-separated NSString
         result = [result stringByAppendingFormat:@"%@, ",
-                  [formatedProgram objectAtIndex:0]];
+                  [formatedProgram objectAtIndex:i]];
+        NSLog(@"result = %@", result);
     }
     // No comma for the last object
     return [result stringByAppendingFormat:@"%@", [formatedProgram lastObject]];
