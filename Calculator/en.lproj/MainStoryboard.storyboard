@@ -696,7 +696,7 @@
                     </view>
                     <connections>
                         <outlet property="display" destination="Qwf-5X-hNJ" id="NOv-8C-4ED"/>
-                        <outlet property="queueDisplay" destination="l8i-W0-6e1" id="qPo-N9-2Hk"/>
+                        <outlet property="programDisplay" destination="l8i-W0-6e1" id="ilk-oH-Kuo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -710,7 +710,7 @@
                 <relationship kind="action" name="operandPressed:" candidateClass="UIButton"/>
                 <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="queueDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

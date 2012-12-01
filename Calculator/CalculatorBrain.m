@@ -32,7 +32,6 @@
     [self.programStack removeAllObjects];
 }
 
-// FIXME: Is there any way to get the dictionary of variables without
 - (double)performOperation:(NSString *)operation
             usingVariables:(NSDictionary *)variableValues {
     
@@ -46,18 +45,89 @@
     
 }
 
+- (NSString *)updateProgramDescription {
+    return [CalculatorBrain descriptionOfProgram:self.program];
+}
+
+// Process all values in a program, turning it into an array of one single
+//
++ (NSMutableArray *)formattedProgram:(NSMutableArray *)program {
+    NSLog(@"program = %@", program);
+    NSMutableArray *result = program;
+    
+    // Set of operations taking two operands
+    NSSet *twoOperandOperations = [NSSet setWithObjects:
+                                   @"+", @"*", @"-", @"/", nil];
+    
+    // Set of operations taking one operand
+    NSSet *oneOperandOperations = [NSSet setWithObjects:
+                                   @"sin", @"cos", @"sqrt", @"+/-",
+                                   @"log", nil];
+    
+    id operandA = nil;
+    id operandB = nil;
+    id operation = nil;
+    int i = 0;
+    
+    for (i = 0; i < [program count]; i++) {
+        operation = [program objectAtIndex:i];
+        if ([twoOperandOperations containsObject:operation]) {
+            if ((i - 1) < 0) { // Both operands are not in the stack
+                operandA = @"0";
+                operandB = @"0";
+            } else if ((i - 2) < 0) { // One operand is not in the stack
+                operandA = [program objectAtIndex:(i - 1)];
+                [program removeObjectAtIndex:(i - 1)];
+                i = i - 1; // correct insert position
+                operandB = @"0";
+            } else { // Both operands are in the stack
+                operandA = [program objectAtIndex:(i - 1)];
+                [program removeObjectAtIndex:(i - 1)];
+                operandB = [program objectAtIndex:(i - 2)];
+                [program removeObjectAtIndex:(i - 2)];
+                i = i - 2; // correct insert position
+            }
+            // Convert NSNumber's to NSString
+            operandA = [NSString stringWithFormat: @"%@", operandA];
+            operandB = [NSString stringWithFormat:@"%@", operandB];
+            NSString *formattedString = [NSString stringWithFormat:
+                                         @"(%@ %@ %@)",
+                                         operandB, operation, operandA];
+            [program replaceObjectAtIndex:i withObject:formattedString];
+            result = [CalculatorBrain formattedProgram:program];
+        } else if ([oneOperandOperations containsObject:operation]) {
+            if ((i - 1) < 0) { // Operand is not in the stack
+                operandA = @"0";
+            } else {
+                operandA = [program objectAtIndex:(i - 1)];
+                [program removeObjectAtIndex:(i - 1)];
+                i = i - 1; // correct insert position
+            }
+            operandA = [NSString stringWithFormat: @"%@", operandA];
+            NSString *formattedString = [NSString stringWithFormat:
+                                         @"%@(%@)", operation, operandA];
+            [program replaceObjectAtIndex:i withObject:formattedString];
+            result = [CalculatorBrain formattedProgram:program];
+        }
+    }
+    return result;
+    
+}
+
 // Format an intelligent string describing the math operations
 + (NSString *)descriptionOfProgram:(id)program {
     
-    if ([program isKindOfClass:[NSArray class]]) { // NSArray?
-        // recursively consume the array
-    }
+    NSString *result = @"";
     
-    // TODO: Return an intelligent description
-    // Iterate through elements of the array
-    // If NSString, print.
-    // If NSNumber, convert and print.
-    return @"";
+    NSMutableArray *formatedProgram = [CalculatorBrain formattedProgram:[program mutableCopy]];
+    
+    for (int i = 0; i < [formatedProgram count] - 1; i++) { // comma-separated NSString
+        result = [result stringByAppendingFormat:@"%@, ",
+                  [formatedProgram objectAtIndex:0]];
+    }
+    // No comma for the last object
+    return [result stringByAppendingFormat:@"%@", [formatedProgram lastObject]];
+    
 }
 
 // Recursively evaluate an operand stack
@@ -137,14 +207,11 @@
 + (double)runProgram:(id)program
  usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
-    NSLog(@"The program is: %@", program);
     NSMutableArray *mutableProgram = nil;
-    
-    int i = 0;
     
     if ([program isKindOfClass:[NSArray class]]) { // NSArray?
         mutableProgram = [program mutableCopy];
-        for (i = 0; i < [mutableProgram count]; i++) { // Enumerate elements
+        for (int i = 0; i < [mutableProgram count]; i++) { // Enumerate elements
             id obj = [program objectAtIndex:i];
             if ([obj isKindOfClass:[NSString class]]) { // NSString?
                 if ([usedVariables containsObject:obj]) { // variable?

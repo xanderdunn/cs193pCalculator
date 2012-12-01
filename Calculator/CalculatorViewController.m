@@ -13,14 +13,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *display;
 @property (nonatomic) BOOL enteringANumber;
 @property (nonatomic) BOOL enteredDecimal;
-@property (weak, nonatomic) IBOutlet UILabel *queueDisplay;
+@property (weak, nonatomic) IBOutlet UILabel *programDisplay;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSDictionary *testVariableValues;
 @end
 
 @implementation CalculatorViewController
 
-// Something here is not right.  Try putting an NSLog(@"here");
 // Define the test variable values
 - (NSDictionary *)testVariableValues {
     if (!_testVariableValues) _testVariableValues =
@@ -55,13 +54,14 @@
             self.enteringANumber = YES;
         }
     }
-    if (self.enteringANumber) { // Remove the trailing "= "
-        self.queueDisplay.text = [self.queueDisplay.text
-            stringByReplacingOccurrencesOfString:@"= " withString:@""];
+    NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
+                               [NSCharacterSet decimalDigitCharacterSet]];
+    if (![operandWithoutNumbers isEqualToString:@""]) { // enter if variable
+        [self enterPressed];
     }
 }
 
-// Store 
+// Store the entered digits on the stack
 - (IBAction)enterPressed {
     id currentValue = self.display.text;
     NSString *testString = [currentValue stringByTrimmingCharactersInSet:
@@ -72,8 +72,7 @@
     }
     [self.brain pushOperand:currentValue];
     // Add the number to the queue display
-    self.queueDisplay.text = [[self.queueDisplay.text
-                         stringByAppendingString:self.display.text] stringByAppendingString:@" "];
+    self.programDisplay.text = [self.brain updateProgramDescription];
     self.enteringANumber = NO;
     self.display.text = @"0";
     self.enteredDecimal = NO;
@@ -81,15 +80,11 @@
 
 // Perform operations and update the display
 - (IBAction)operationPressed:(UIButton *)sender {
-    NSLog(@"test variable values = %@", self.testVariableValues);
     NSString *operation = sender.currentTitle;
-    self.queueDisplay.text = [self.queueDisplay.text
-                              stringByReplacingOccurrencesOfString:@"= " withString:@""];
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
-    self.queueDisplay.text = [[self.queueDisplay.text
-                              stringByAppendingString:operation] stringByAppendingString:@" = "];
     double result = [self.brain performOperation:operation
                                   usingVariables:self.testVariableValues];
+    self.programDisplay.text = [self.brain updateProgramDescription];
     self.display.text = [NSString stringWithFormat:@"%g", result];
 }
 
@@ -120,7 +115,7 @@
 // reset
 - (IBAction)clearPressed {
     self.display.text = @"0";
-    self.queueDisplay.text = @"";
+    self.programDisplay.text = @"";
     [self.brain clearStack];
     self.enteredDecimal = NO;
     self.enteringANumber = NO;

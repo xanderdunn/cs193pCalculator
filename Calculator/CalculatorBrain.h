@@ -14,6 +14,7 @@
             usingVariables:(NSDictionary *)variableValues;
 - (void)clearStack;
 - (NSString *)description;
+- (NSString *)updateProgramDescription;
 
 @property (readonly) id program;
 
