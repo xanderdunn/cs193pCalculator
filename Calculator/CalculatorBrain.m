@@ -10,7 +10,6 @@
 
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *programStack;
-//@property (nonatomic, strong) NSDictionary *variables;
 @end
 
 @implementation CalculatorBrain
@@ -27,12 +26,12 @@
     [self.programStack addObject:operand];
 }
 
-// Get an empty stack
+// Empty the stack
 -(void)clearStack {
     [self.programStack removeAllObjects];
 }
 
-- (double)performOperation:(NSString *)operation
+- (id)performOperation:(NSString *)operation
             usingVariables:(NSDictionary *)variableValues {
     
     [self.programStack addObject:operation];
@@ -43,10 +42,6 @@
 - (id)program {
     return [self.programStack copy];
     
-}
-
-- (NSString *)updateProgramDescription {
-    return [CalculatorBrain descriptionOfProgram:self.program];
 }
 
 // Process all values in a program, turning it into an array of one single
@@ -68,26 +63,19 @@
     id operation = nil;
     int i = 0;
     
-    // TODO: Suppress parentheses for single operation of something already
-    //  in parentheses: log((5+2))
-    // TODO: Suppress parentheses for top-level operations that are not
-    //  operated on.  Ex.: (3 + 5)
-    // Do I ever need parantheses at the beginning of an item?
-    // If operation == "*" OR operation == "/", result has no parentheses
-    
     // FIXME: This recursive implementation is messy.
     
     for (i = 0; i < [program count]; i++) {
         operation = [program objectAtIndex:i];
         if ([twoOperandOperations containsObject:operation]) {
             if ((i - 1) < 0) { // Both operands are not in the stack
-                operandA = @"0";
-                operandB = @"0";
+                operandA = @"nan";
+                operandB = @"nan";
             } else if ((i - 2) < 0) { // One operand is not in the stack
                 operandA = [program objectAtIndex:(i - 1)];
                 [program removeObjectAtIndex:(i - 1)];
                 i = i - 1; // correct insert position
-                operandB = @"0";
+                operandB = @"nan";
             } else { // Both operands are in the stack
                 operandA = [program objectAtIndex:(i - 1)];
                 [program removeObjectAtIndex:(i - 1)];
@@ -165,7 +153,8 @@
     
     NSString *result = @"";
     
-    NSMutableArray *formatedProgram = [CalculatorBrain formattedProgram:[program mutableCopy]];
+    NSMutableArray *formatedProgram = [CalculatorBrain formattedProgram:
+                                       [program mutableCopy]];
     
     NSUInteger count = [formatedProgram count];
     for (int i = count - 1; i > 0; i--) { // comma-separated NSString
@@ -173,18 +162,19 @@
                   [formatedProgram objectAtIndex:i]];
     }
     // No comma for the last object
-    return [result stringByAppendingFormat:@"%@", [formatedProgram
-                                                   objectAtIndex:0]];
-    
+    if ([formatedProgram count]) {
+        return [result stringByAppendingFormat:@"%@", [formatedProgram
+                                                       objectAtIndex:0]];
+    } else return @"";
 }
 
 // Recursively evaluate an operand stack
 + (double)popOperandOffStack:(NSMutableArray *)stack {
-    double result = 0;
+    double result = NAN;
     
     id topOfStack = [stack lastObject];
     if (topOfStack) [stack removeLastObject];
-    
+        
     if ([topOfStack isKindOfClass:[NSNumber class]]) {
         result = [topOfStack doubleValue];
     } else if ([topOfStack isKindOfClass:[NSString class]]) {
@@ -200,12 +190,17 @@
         } else if ([topOfStack isEqualToString:@"/"]) {
             double divisor = [self popOperandOffStack:stack];
             if (divisor) result = [self popOperandOffStack:stack] / divisor;
-        } else if ([topOfStack isEqualToString:@"sin"]) {
+            else result = NAN;
+        }
+        // TODO: Also put in the NAN conditions for sin and cos
+        else if ([topOfStack isEqualToString:@"sin"]) {
             result = sin([self popOperandOffStack:stack]);
         } else if ([topOfStack isEqualToString:@"cos"]) {
             result = cos([self popOperandOffStack:stack]);
         } else if ([topOfStack isEqualToString:@"sqrt"]) {
-            result = sqrt([self popOperandOffStack:stack]);
+            double operand = [self popOperandOffStack:stack];
+            if (operand) result = sqrt(operand);
+            else result = NAN;
         } else if ([topOfStack isEqualToString:@"π"]) {
             result = M_PI;
         } else if ([topOfStack isEqualToString:@"+/-"]) {
@@ -219,6 +214,12 @@
         }
     }
     return result;
+}
+
+- (void)removeLastItem {
+    if ([self.program count] <= 1) {
+        [self.programStack removeAllObjects];
+    } else [self.programStack removeLastObject];
 }
 
 // Evaluates a program without variables
@@ -252,11 +253,12 @@
 
 // Evaluates a program by substituting variable values and then calling
 //  runProgram
-+ (double)runProgram:(id)program
++ (id)runProgram:(id)program
  usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
     NSMutableArray *mutableProgram = nil;
     
+    // replace variables with values
     if ([program isKindOfClass:[NSArray class]]) { // NSArray?
         mutableProgram = [program mutableCopy];
         for (int i = 0; i < [mutableProgram count]; i++) { // Enumerate elements
@@ -270,7 +272,12 @@
             }
         }
     }
-    return [self runProgram:[mutableProgram copy]];
+    
+    double result = [self runProgram:[mutableProgram copy]];
+    
+    if (result == NAN) {
+        return @"NaN";
+    } else return [NSNumber numberWithDouble:result];
 }
 
 @end

@@ -22,12 +22,21 @@
 
 @implementation CalculatorViewController
 
+- (void)updateDisplay {
+    id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+    self.display.text = [NSString stringWithFormat:@"%@", result];
+    self.programDisplay.text = [CalculatorBrain descriptionOfProgram:
+                                self.brain.program];
+    [self updateVariablesDisplay];
+    
+}
+
 - (IBAction)testButtonPushed:(UIButton *)sender {
     NSString *testTitle = sender.currentTitle;
     testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test "
                                                      withString:@""];
     self.testVariableSetNumber = [testTitle intValue];
-    [self updateVariablesDisplay];
+    [self updateDisplay];
 }
 
 - (void) updateVariablesDisplay {
@@ -39,7 +48,7 @@
     for (NSString *variable in usedVariables) {
         id value = [self.testVariableValues objectForKey:variable];
         if (value == nil) {
-            value = [NSNumber numberWithInt:0];
+            value = [NSNumber numberWithDouble:NAN];
         }
         displayString = [displayString stringByAppendingFormat:@"%@ = %@   ",
                          variable, value];
@@ -108,9 +117,8 @@
     }
     [self.brain pushOperand:currentValue];
     // Add the number to the queue display
-    self.programDisplay.text = [self.brain updateProgramDescription];
+    [self updateDisplay];
     self.enteringANumber = NO;
-    self.display.text = @"0";
     self.enteredDecimal = NO;
 }
 
@@ -118,10 +126,11 @@
 - (IBAction)operationPressed:(UIButton *)sender {
     NSString *operation = sender.currentTitle;
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
-    double result = [self.brain performOperation:operation
-                                  usingVariables:self.testVariableValues];
-    self.programDisplay.text = [self.brain updateProgramDescription];
-    self.display.text = [NSString stringWithFormat:@"%g", result];
+    // TODO: DO I need performOperation anymore?  Why not just run program?
+    id result = [self.brain performOperation:operation
+                              usingVariables:self.testVariableValues];
+    [self updateDisplay];
+    self.display.text = [NSString stringWithFormat:@"%@", result];
 }
 
 // Remove digits from the display
@@ -132,19 +141,12 @@
             self.display.text = [self.display.text substringToIndex:
                                  (stringLength - 1)];
         } else if (stringLength == 1) {
-            double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
-            self.display.text = [NSString stringWithFormat:@"%g", result];
+            [self updateDisplay];
             self.enteringANumber = NO;
         }
     } else { // not entering a number
-        // TODO: Create an instnace method for updating the programDisplay
-        //  and for updating the display.text.  Call these methods rather
-        //  than repeating the below code.
-        // Remove the top item from the stack
-        double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
-        self.display.text = [NSString stringWithFormat:@"%g", result];
-        self.programDisplay.text = [self.brain updateProgramDescription];
-        [self updateVariablesDisplay];
+        [self.brain removeLastItem];
+        [self updateDisplay];
     }
 }
 
@@ -154,9 +156,9 @@
         double doubleValue = [self.display.text doubleValue] * -1;
         self.display.text = [NSString stringWithFormat:@"%g", doubleValue];
     } else {
-        double result = [self.brain performOperation:@"+/-"
+        id result = [self.brain performOperation:@"+/-"
                                       usingVariables:self.testVariableValues];
-        self.display.text = [NSString stringWithFormat:@"%g", result];
+        self.display.text = [NSString stringWithFormat:@"%@", result];
     }
 }
 
