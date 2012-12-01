@@ -249,8 +249,7 @@
 }
 
 // FIXME: Decimal numbers are being treated as variables
-// FIXME: Currently, I allow no zeros while notEnteringNumber.  I should
-//  allow one zero.
+// FIXME: Zeros are not treated as numbers, but as nan.  Ex.: 222 E 0 +
 
 // Evaluates a program by substituting variable values and then calling
 //  runProgram

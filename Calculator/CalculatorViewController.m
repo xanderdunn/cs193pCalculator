@@ -82,6 +82,7 @@
 // Update display features and prevent odd situations
 - (IBAction)operandPressed:(UIButton *)sender {
     NSString *operand = sender.currentTitle;
+    // TODO: Make use of rangeOfString to remove the enteredDecimal property
     if ([operand isEqualToString:@"."]) {
         if (!self.enteredDecimal) { // Prevent multiple decimals
             self.enteredDecimal = YES;
@@ -92,10 +93,13 @@
     } else if (self.enteringANumber){ // append to existing number
         self.display.text = [self.display.text
                              stringByAppendingString:operand];
-    } else if (![operand isEqualToString:@"0"]) { // Prevent leading zeros
-            self.display.text = operand;
-            self.enteringANumber = YES;
-        }
+    } else if (![self.display.text hasPrefix:@"0"] &&
+               [operand isEqualToString:@"0"]) { // prevent leading zeros
+        self.display.text = operand;
+    } else if (![operand isEqualToString:@"0"]) {
+        self.display.text = operand;
+        self.enteringANumber = YES;
+    }
     NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
                                        [NSCharacterSet
                                         decimalDigitCharacterSet]];
