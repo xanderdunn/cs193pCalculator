@@ -118,7 +118,7 @@
             
             NSCharacterSet *plusChar = [NSCharacterSet
                                         characterSetWithCharactersInString:
-                                        @"+-"];
+                                        @"+"];
             
             NSCharacterSet *minusChar = [NSCharacterSet
                                          characterSetWithCharactersInString:
