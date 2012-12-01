@@ -115,8 +115,7 @@
         currentValue = [NSNumber numberWithDouble:
                         [self.display.text doubleValue]];
     }
-    [self.brain pushOperand:currentValue];
-    // Add the number to the queue display
+    [self.brain pushOntoStack:currentValue];
     [self updateDisplay];
     self.enteringANumber = NO;
     self.enteredDecimal = NO;
@@ -126,11 +125,9 @@
 - (IBAction)operationPressed:(UIButton *)sender {
     NSString *operation = sender.currentTitle;
     if (self.enteringANumber) [self enterPressed]; // Auto evaluate
-    // TODO: DO I need performOperation anymore?  Why not just run program?
-    id result = [self.brain performOperation:operation
-                              usingVariables:self.testVariableValues];
+    [self.brain pushOntoStack:operation];
     [self updateDisplay];
-    self.display.text = [NSString stringWithFormat:@"%@", result];
+    //self.display.text = [NSString stringWithFormat:@"%@", result];
 }
 
 // Remove digits from the display
@@ -156,20 +153,17 @@
         double doubleValue = [self.display.text doubleValue] * -1;
         self.display.text = [NSString stringWithFormat:@"%g", doubleValue];
     } else {
-        id result = [self.brain performOperation:@"+/-"
-                                      usingVariables:self.testVariableValues];
-        self.display.text = [NSString stringWithFormat:@"%@", result];
+        [self.brain pushOntoStack:@"+/-"];
+        [self updateDisplay];
     }
 }
 
 // reset
 - (IBAction)clearPressed {
-    self.display.text = @"0";
-    self.programDisplay.text = @"";
     [self.brain clearStack];
     self.enteredDecimal = NO;
     self.enteringANumber = NO;
-    [self updateVariablesDisplay];
+    [self updateDisplay];
 }
 
 @end

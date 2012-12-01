@@ -22,20 +22,13 @@
     return _programStack;
 }
 
-- (void)pushOperand:(id)operand {
-    [self.programStack addObject:operand];
+- (void)pushOntoStack:(id)object {
+    [self.programStack addObject:object];
 }
 
 // Empty the stack
 -(void)clearStack {
     [self.programStack removeAllObjects];
-}
-
-- (id)performOperation:(NSString *)operation
-            usingVariables:(NSDictionary *)variableValues {
-    
-    [self.programStack addObject:operation];
-    return [CalculatorBrain runProgram:self.program usingVariableValues:variableValues];
 }
 
 // Make an immutable copy of the stack so that it can be consumed
@@ -49,6 +42,7 @@
 + (NSMutableArray *)formattedProgram:(NSMutableArray *)program {
     NSMutableArray *result = program;
     
+    // FIXME: Inefficient to place these sets inside the recursive function
     // Set of operations taking two operands
     NSSet *twoOperandOperations = [NSSet setWithObjects:
                                    @"+", @"*", @"-", @"/", nil];
@@ -93,8 +87,7 @@
             //  contains a + or - anywhere, check to see that the first
             //  operation contained in the string is a + or -
             
-            // FIXME: Implement this using methods from outside this function
-            
+            // FIXME: Implement this using more intelligent character finding
             // If operandA contains + or -, then put () around it
             NSCharacterSet *operandAChars = [NSCharacterSet
                                              characterSetWithCharactersInString:
@@ -171,6 +164,10 @@
 // Recursively evaluate an operand stack
 + (double)popOperandOffStack:(NSMutableArray *)stack {
     double result = NAN;
+    
+    if (![stack count]) { // stack is empty
+        return 0;
+    }
     
     id topOfStack = [stack lastObject];
     if (topOfStack) [stack removeLastObject];
