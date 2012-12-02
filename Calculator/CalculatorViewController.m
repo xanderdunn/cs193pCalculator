@@ -118,7 +118,6 @@
     [self.brain pushOntoStack:currentValue];
     [self updateDisplay];
     self.enteringANumber = NO;
-    self.enteredDecimal = NO;
 }
 
 - (IBAction)undoPressed { // remove digits from the display
@@ -149,7 +148,6 @@
 
 - (IBAction)clearPressed { // reset
     [self.brain clearStack];
-    self.enteredDecimal = NO;
     self.enteringANumber = NO;
     [self updateDisplay];
 }
