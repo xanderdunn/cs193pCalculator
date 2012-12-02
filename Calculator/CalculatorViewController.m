@@ -20,6 +20,9 @@
 @property (nonatomic) int testVariableSetNumber;
 @end
 
+// TODO: There are two types of buttons: Those which should immediately go into
+//  the stack, and those which should be buffered in the display
+
 @implementation CalculatorViewController
 
 - (void)updateDisplay {
@@ -79,34 +82,34 @@
 }
 
 // Update display features and prevent odd situations
-- (IBAction)operandPressed:(UIButton *)sender {
+- (IBAction)bufferedItemPressed:(UIButton *)sender {
     NSString *operand = sender.currentTitle;
-    // TODO: Make use of rangeOfString to remove the enteredDecimal property
-    if ([operand isEqualToString:@"."]) {
-        if (!self.enteredDecimal) { // Prevent multiple decimals
-            self.enteredDecimal = YES;
-            self.enteringANumber = YES;
-            self.display.text =
-            [self.display.text stringByAppendingString:operand];
-        }
-    } else if (self.enteringANumber){ // append to existing number
-        self.display.text = [self.display.text
-                             stringByAppendingString:operand];
-    } else if (![self.display.text hasPrefix:@"0"] &&
-               [operand isEqualToString:@"0"]) { // prevent leading zeros
+    
+    if ([self.display.text rangeOfString:@"."].length &&
+        [operand isEqualToString:@"."]) { // prevent extra decimals
+    } else if (self.enteringANumber && [self.display.text length] == 1 &&
+               [self.display.text hasPrefix:@"0"] &&
+               [operand isEqualToString:@"0"]) { // do nothing, no leading zeros
+    } else if (self.enteringANumber && [self.display.text hasPrefix:@"0"] &&
+               ![operand isEqualToString:@"0"]) { // erase leading zero
         self.display.text = operand;
-    } else if (![operand isEqualToString:@"0"]) {
+    } else if (self.enteringANumber) { // append anything else
+        self.display.text = [self.display.text stringByAppendingString:operand];
+    } else { // otherwise, new number
         self.display.text = operand;
         self.enteringANumber = YES;
     }
-    NSString *operandWithoutNumbers = [operand stringByTrimmingCharactersInSet:
-                                       [NSCharacterSet
-                                        decimalDigitCharacterSet]];
-    if (![operandWithoutNumbers isEqualToString:@""] &&
-        ![operand isEqualToString:@"."]) { // it is a variable
-        [self.brain pushOntoStack:operand];
-        [self updateDisplay];
+}
+
+- (IBAction)stackedItemPressed:(UIButton *)sender { // add operation to stack
+    NSString *operation = sender.currentTitle;
+    if (self.enteringANumber) {
+        [self.brain pushOntoStack:[NSNumber numberWithDouble:
+                                   [self.display.text doubleValue]]];
     }
+    [self.brain pushOntoStack:operation];
+    [self updateDisplay];
+    self.enteringANumber = NO;
 }
 
 - (IBAction)enterPressed { // store the digits on the stack
@@ -116,17 +119,6 @@
     [self updateDisplay];
     self.enteringANumber = NO;
     self.enteredDecimal = NO;
-}
-
-- (IBAction)operationPressed:(UIButton *)sender { // add operation to stack
-    NSString *operation = sender.currentTitle;
-    if (self.enteringANumber) {
-        [self.brain pushOntoStack:[NSNumber numberWithDouble:
-                                   [self.display.text doubleValue]]];
-    }
-    [self.brain pushOntoStack:operation];
-    [self updateDisplay];
-    self.enteringANumber = NO;
 }
 
 - (IBAction)undoPressed { // remove digits from the display

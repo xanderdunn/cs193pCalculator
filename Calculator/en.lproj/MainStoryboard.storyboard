@@ -46,7 +46,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="Jfi-ZA-nf5"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="2Om-f3-mzM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcN-MC-3q3">
@@ -59,7 +59,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="dJF-yz-gKo"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="p21-4J-cwF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IyO-b9-Mhg">
@@ -72,7 +72,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="nfy-B7-O61"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="d81-V6-trQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djk-md-maW">
@@ -85,7 +85,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="4vA-Nq-Vlu"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="TEH-e2-bSq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMb-GY-GFJ">
@@ -98,7 +98,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="xUd-iY-Of4"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="hyA-4v-vTw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esI-Kt-p8h">
@@ -111,7 +111,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="kbA-kJ-of9"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="Lub-b8-IeG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z80-yA-jQU">
@@ -124,7 +124,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="sl1-Xa-P6O"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="OoP-UQ-3L1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqH-Gd-rD7">
@@ -137,7 +137,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="u2V-Y8-kYx"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="Frq-Cr-aZh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-5k-a0p">
@@ -150,7 +150,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="lbK-FK-NBp"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="60R-qv-323"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aM8-3v-sf7">
@@ -163,7 +163,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="0JE-sR-oiC"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="OFA-8f-CsZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rk7-1K-O9v">
@@ -179,7 +179,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="BQR-k4-yhE"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="mJA-Kp-zri"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVA-8a-fLB">
@@ -192,7 +192,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="GqM-33-frf"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="Ulj-55-7zI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24L-C8-NbB">
@@ -205,7 +205,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="Tdg-Z7-Tqf"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="fzY-UP-IoX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrl-AB-dOi">
@@ -218,7 +218,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="gZr-et-xS7"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="q0r-lo-Qxh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-1z-XiN">
@@ -244,7 +244,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="crF-R4-N60"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="156-sl-nIz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGw-LF-Nx8">
@@ -257,7 +257,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="PFu-0B-iZC"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="3pb-bv-4cT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZ1-ES-Da9">
@@ -270,7 +270,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="uvj-EC-3fg"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="d0E-mg-9RE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPf-f9-z66">
@@ -283,7 +283,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="oVj-27-KTe"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="U4o-F8-bHg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8i-W0-6e1">
@@ -353,7 +353,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="P5f-21-09n"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="fn0-Ck-wOM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rh-8D-9Zr">
@@ -366,7 +366,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="gw1-M8-4Sp"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="6V3-Sd-Ngi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1e-dR-5NB">
@@ -379,7 +379,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="T1D-uq-Grx"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="XQi-P7-yiY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2g-3Q-4jv">
@@ -392,7 +392,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="hhD-eb-gMv"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="46Q-R5-hF1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ck9-R9-Ije">
@@ -405,7 +405,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="bMi-O2-Sia"/>
+                                    <action selector="stackedItemPressed:" destination="2" eventType="touchUpInside" id="KXP-jr-lxM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qv0-Mg-QIK">
@@ -418,7 +418,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operandPressed:" destination="2" eventType="touchUpInside" id="shz-0y-7TY"/>
+                                    <action selector="bufferedItemPressed:" destination="2" eventType="touchUpInside" id="jpg-Fh-hii"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6u9-3H-caj">
@@ -598,8 +598,8 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="operandPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="bufferedItemPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="stackedItemPressed:" candidateClass="UIButton"/>
                 <relationship kind="action" name="testButtonPushed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
