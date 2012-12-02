@@ -19,9 +19,6 @@
 @property (nonatomic) int testVariableSetNumber;
 @end
 
-// TODO: There are two types of buttons: Those which should immediately go into
-//  the stack, and those which should be buffered in the display
-
 @implementation CalculatorViewController
 
 - (void)updateDisplay {

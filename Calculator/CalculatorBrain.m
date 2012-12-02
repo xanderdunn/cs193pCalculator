@@ -23,8 +23,10 @@
 }
 
 - (void)pushOntoStack:(id)object { // add to programStack
-    // at this point, all numbers should be converted to NSNumber
-    [self.programStack addObject:object];
+    if ([object isKindOfClass:[NSString class]] ||
+        [object isKindOfClass:[NSNumber class]]) { // prevent illegal types
+        [self.programStack addObject:object];
+    }
 }
 
 -(void)clearStack { // empty stack
@@ -85,34 +87,16 @@
             // FIXME: Rather than checking to see if operandA or operandB
             //  contains a + or - anywhere, check to see that the first
             //  operation contained in the string is a + or -
-            
-            // FIXME: Implement this using more intelligent character finding
-            // If operandA contains + or -, then put () around it
-            NSCharacterSet *operandAChars = [NSCharacterSet
-                                             characterSetWithCharactersInString:
-                                             operandA];
-            
-            NSCharacterSet *operandBChars = [NSCharacterSet
-                                             characterSetWithCharactersInString:
-                                             operandB];
-            
-            NSCharacterSet *plusChar = [NSCharacterSet
-                                        characterSetWithCharactersInString:
-                                        @"+"];
-            
-            NSCharacterSet *minusChar = [NSCharacterSet
-                                         characterSetWithCharactersInString:
-                                         @"-"];
-            
+                        
             // Parenthesis around + or - operations in operandA
-            if ([operandAChars isSupersetOfSet:plusChar] ||
-                [operandAChars isSupersetOfSet:minusChar]) {
+            if ([operandA rangeOfString:@"+"].length ||
+                [operandA rangeOfString:@"-"].length) {
                 formattedString = [NSString stringWithFormat:@"%@ %@ (%@)",
                                    operandB, operation, operandA];
             }
             // Parenthesis around + or - operations in operandB
-            else if ([operandBChars isSupersetOfSet:plusChar] ||
-                     [operandBChars isSupersetOfSet:minusChar]) {
+            else if ([operandB rangeOfString:@"+"].length ||
+                     [operandB rangeOfString:@"-"].length) {
                 formattedString = [NSString stringWithFormat:@"(%@) %@ %@",
                                    operandB, operation, operandA];
                 
@@ -140,6 +124,8 @@
     
 }
 
+// FIXME: Evaluate "+/-" operations in the description so that they
+//  appear as negative numbers rather than as operations: +/-(num)
 // Format an intelligent string describing the math operations
 + (NSString *)descriptionOfProgram:(id)program {
     
@@ -170,7 +156,7 @@
     
     id topOfStack = [stack lastObject];
     if (topOfStack) [stack removeLastObject];
-        
+    
     if ([topOfStack isKindOfClass:[NSNumber class]]) {
         result = [topOfStack doubleValue];
     } else if ([topOfStack isKindOfClass:[NSString class]]) {
@@ -247,13 +233,10 @@
     return variables;
 }
 
-// FIXME: Zeros are not treated as numbers, but as nan.  Ex.: 222 E 0 +
-// All double operations produce a nan
-
 // Evaluates a program by substituting variable values and then calling
 //  runProgram
 + (id)runProgram:(id)program
- usingVariableValues:(NSDictionary *)variableValues {
+usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
     NSMutableArray *mutableProgram = nil;
     
