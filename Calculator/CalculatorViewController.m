@@ -12,7 +12,6 @@
 @interface CalculatorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *display;
 @property (nonatomic) BOOL enteringANumber;
-@property (nonatomic) BOOL enteredDecimal;
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @property (nonatomic, strong) NSDictionary *testVariableValues;
