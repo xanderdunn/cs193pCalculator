@@ -47,7 +47,7 @@
     
     for (NSString *variable in usedVariables) {
         id value = [self.testVariableValues objectForKey:variable];
-        if (value == nil) {
+        if (!value) {
             value = [NSNumber numberWithDouble:NAN];
         }
         displayString = [displayString stringByAppendingFormat:@"%@ = %@   ",
@@ -67,7 +67,6 @@
          [NSNumber numberWithDouble:5], @"foo",
          [NSNumber numberWithDouble:6], @"bling",
          [NSNumber numberWithDouble:7], @"z", nil];
-    else if (self.testVariableSetNumber == 3) _testVariableValues = nil;
     
     return _testVariableValues;
 }
@@ -80,6 +79,8 @@
 // Update display features and prevent odd situations
 - (IBAction)bufferedItemPressed:(UIButton *)sender {
     NSString *operand = sender.currentTitle;
+    
+    // FIXME: Pressing . at the beginning displays .x rather than 0.x
     
     if ([self.display.text rangeOfString:@"."].length &&
         [operand isEqualToString:@"."]) { // prevent extra decimals

@@ -53,9 +53,9 @@
                                    @"sin", @"cos", @"sqrt", @"+/-",
                                    @"log", nil];
     
-    id operandA = nil;
-    id operandB = nil;
-    id operation = nil;
+    id operandA;
+    id operandB;
+    id operation;
     int i = 0;
     
     // FIXME: This recursive implementation is messy.
@@ -82,7 +82,7 @@
             operandA = [NSString stringWithFormat: @"%@", operandA];
             operandB = [NSString stringWithFormat:@"%@", operandB];
             
-            NSString *formattedString = nil;
+            NSString *formattedString;
             
             // FIXME: Rather than checking to see if operandA or operandB
             //  contains a + or - anywhere, check to see that the first
@@ -238,7 +238,7 @@
 + (id)runProgram:(id)program
 usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorBrain variablesUsedInProgram:program];
-    NSMutableArray *mutableProgram = nil;
+    NSMutableArray *mutableProgram;
     
     // replace variables with values
     if ([program isKindOfClass:[NSArray class]]) { // NSArray?
