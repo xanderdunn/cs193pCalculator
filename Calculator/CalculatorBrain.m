@@ -35,7 +35,6 @@
 
 - (id)program { // program is immutable copy of programStack
     return [self.programStack copy];
-    
 }
 
 // Process all values in a program, turning it into an array of one single
