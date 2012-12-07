@@ -14,61 +14,15 @@
 @property (nonatomic) BOOL enteringANumber;
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
 @property (nonatomic, strong) CalculatorBrain *brain;
-@property (nonatomic, strong) NSDictionary *testVariableValues;
-@property (weak, nonatomic) IBOutlet UILabel *variablesDisplay;
-@property (nonatomic) int testVariableSetNumber;
 @end
 
 @implementation CalculatorViewController
 
 - (void)updateDisplay {
-    id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+    id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:nil];
     self.display.text = [NSString stringWithFormat:@"%@", result];
     self.programDisplay.text = [CalculatorBrain descriptionOfProgram:
-                                self.brain.program];
-    [self updateVariablesDisplay];
-    
-}
-
-- (IBAction)testButtonPushed:(UIButton *)sender {
-    NSString *testTitle = sender.currentTitle;
-    // FIXME: More elegant way of getting the last character in the NSString
-    testTitle = [testTitle stringByReplacingOccurrencesOfString:@"Test "
-                                                     withString:@""];
-    self.testVariableSetNumber = [testTitle intValue];
-    [self updateDisplay];
-}
-
-- (void) updateVariablesDisplay { // update label at bottom showing used vars
-    NSSet *usedVariables = [CalculatorBrain
-                            variablesUsedInProgram:self.brain.program];
-    
-    NSString *displayString = @"";
-    
-    for (NSString *variable in usedVariables) {
-        id value = [self.testVariableValues objectForKey:variable];
-        if (!value) {
-            value = [NSNumber numberWithDouble:NAN];
-        }
-        displayString = [displayString stringByAppendingFormat:@"%@ = %@   ",
-                         variable, value];
-    }
-    self.variablesDisplay.text = displayString;
-}
-
-- (NSDictionary *)testVariableValues { // define test variables
-    if (self.testVariableSetNumber == 1) _testVariableValues =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-         [NSNumber numberWithDouble:-22.67], @"x",
-         [NSNumber numberWithDouble:1000000], @"y",
-         [NSNumber numberWithDouble:0], @"z", nil];
-    else if (self.testVariableSetNumber == 2) _testVariableValues =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-         [NSNumber numberWithDouble:5], @"foo",
-         [NSNumber numberWithDouble:6], @"bling",
-         [NSNumber numberWithDouble:7], @"z", nil];
-    
-    return _testVariableValues;
+                                self.brain.program];    
 }
 
 - (CalculatorBrain *)brain { // overload getter for lazy instantiation
