@@ -104,4 +104,11 @@
     [self updateDisplay];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ToGraph"]) {
+        // TODO
+        // [segue.destinationViewController setProgram:self.brain.program];
+    }
+}
+
 @end

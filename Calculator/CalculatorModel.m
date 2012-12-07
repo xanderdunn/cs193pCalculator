@@ -86,7 +86,7 @@
             // FIXME: Rather than checking to see if operandA or operandB
             //  contains a + or - anywhere, check to see that the first
             //  operation contained in the string is a + or -
-                        
+            
             // Parenthesis around + or - operations in operandA
             if ([operandA rangeOfString:@"+"].length ||
                 [operandA rangeOfString:@"-"].length) {
