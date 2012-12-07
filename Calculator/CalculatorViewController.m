@@ -7,26 +7,27 @@
 //
 
 #import "CalculatorViewController.h"
-#import "CalculatorBrain.h"
+#import "CalculatorModel.h"
 
 @interface CalculatorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *display;
 @property (nonatomic) BOOL enteringANumber;
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
-@property (nonatomic, strong) CalculatorBrain *brain;
+@property (nonatomic, strong) CalculatorModel *brain;
 @end
 
 @implementation CalculatorViewController
 
 - (void)updateDisplay {
-    id result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:nil];
+    id result = [CalculatorModel runProgram:self.brain.program
+                        usingVariableValues:nil];
     self.display.text = [NSString stringWithFormat:@"%@", result];
-    self.programDisplay.text = [CalculatorBrain descriptionOfProgram:
+    self.programDisplay.text = [CalculatorModel descriptionOfProgram:
                                 self.brain.program];    
 }
 
-- (CalculatorBrain *)brain { // overload getter for lazy instantiation
-    if (!_brain) _brain = [[CalculatorBrain alloc] init];
+- (CalculatorModel *)brain { // overload getter for lazy instantiation
+    if (!_brain) _brain = [[CalculatorModel alloc] init];
     return _brain;
 }
 
