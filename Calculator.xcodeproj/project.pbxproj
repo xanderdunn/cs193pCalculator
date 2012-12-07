@@ -19,6 +19,7 @@
 		844D48A91664AC7200990B7A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844D48A81664AC7200990B7A /* Default-568h@2x.png */; };
 		844D48AC1664AC7200990B7A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844D48AA1664AC7200990B7A /* MainStoryboard.storyboard */; };
 		844D48AF1664AC7200990B7A /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D48AE1664AC7200990B7A /* CalculatorViewController.m */; };
+		84AE463116723FF500B455B0 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE463016723FF500B455B0 /* AxesDrawer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -51,6 +52,8 @@
 		844D48AB1664AC7200990B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		844D48AD1664AC7200990B7A /* CalculatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorViewController.h; sourceTree = "<group>"; };
 		844D48AE1664AC7200990B7A /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
+		84AE462F16723FF500B455B0 /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
+		84AE463016723FF500B455B0 /* AxesDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxesDrawer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,7 @@
 		844D48831664AC7200990B7A = {
 			isa = PBXGroup;
 			children = (
+				84AE463316723FFF00B455B0 /* AxesDrawer */,
 				844D48981664AC7200990B7A /* Calculator */,
 				844D48911664AC7200990B7A /* Frameworks */,
 				844D488F1664AC7200990B7A /* Products */,
@@ -121,6 +125,15 @@
 				844D48A81664AC7200990B7A /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		84AE463316723FFF00B455B0 /* AxesDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				84AE462F16723FF500B455B0 /* AxesDrawer.h */,
+				84AE463016723FF500B455B0 /* AxesDrawer.m */,
+			);
+			name = AxesDrawer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +208,7 @@
 				844D48A31664AC7200990B7A /* CalculatorAppDelegate.m in Sources */,
 				844D48AF1664AC7200990B7A /* CalculatorViewController.m in Sources */,
 				84149346166509D800E39ADB /* CalculatorBrain.m in Sources */,
+				84AE463116723FF500B455B0 /* AxesDrawer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
