@@ -8,27 +8,28 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorModel.h"
+#import "GraphViewController.h" // Need to communicate to destination controller
 
 @interface CalculatorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *display;
 @property (nonatomic) BOOL enteringANumber;
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
-@property (nonatomic, strong) CalculatorModel *brain;
+@property (nonatomic, strong) CalculatorModel *calculatorModel;
 @end
 
 @implementation CalculatorViewController
 
-- (void)updateDisplay {
-    id result = [CalculatorModel runProgram:self.brain.program
+- (void)updateDisplay { // Update all aspects of the display on changes
+    id result = [CalculatorModel runProgram:self.calculatorModel.program
                         usingVariableValues:nil];
     self.display.text = [NSString stringWithFormat:@"%@", result];
     self.programDisplay.text = [CalculatorModel descriptionOfProgram:
-                                self.brain.program];    
+                                self.calculatorModel.program];
 }
 
-- (CalculatorModel *)brain { // overload getter for lazy instantiation
-    if (!_brain) _brain = [[CalculatorModel alloc] init];
-    return _brain;
+- (CalculatorModel *)calculatorModel { // overload getter for lazy instantiation
+    if (!_calculatorModel) _calculatorModel = [[CalculatorModel alloc] init];
+    return _calculatorModel;
 }
 
 // Update display features and prevent odd situations
@@ -56,10 +57,10 @@
 - (IBAction)stackedItemPressed:(UIButton *)sender { // add operation to stack
     NSString *operation = sender.currentTitle;
     if (self.enteringANumber) {
-        [self.brain pushOntoStack:[NSNumber numberWithDouble:
-                                   [self.display.text doubleValue]]];
+        [self.calculatorModel pushOntoStack:[NSNumber numberWithDouble:
+                                             [self.display.text doubleValue]]];
     }
-    [self.brain pushOntoStack:operation];
+    [self.calculatorModel pushOntoStack:operation];
     [self updateDisplay];
     self.enteringANumber = NO;
 }
@@ -67,7 +68,7 @@
 - (IBAction)enterPressed { // store the digits on the stack
     NSNumber *currentValue = [NSNumber numberWithDouble:
                               [self.display.text doubleValue]];
-    [self.brain pushOntoStack:currentValue];
+    [self.calculatorModel pushOntoStack:currentValue];
     [self updateDisplay];
     self.enteringANumber = NO;
 }
@@ -83,7 +84,7 @@
             self.enteringANumber = NO;
         }
     } else { // not entering a number
-        [self.brain removeLastItem];
+        [self.calculatorModel removeLastItem];
         [self updateDisplay];
     }
 }
@@ -93,21 +94,21 @@
         double doubleValue = [self.display.text doubleValue] * -1;
         self.display.text = [NSString stringWithFormat:@"%g", doubleValue];
     } else {
-        [self.brain pushOntoStack:@"+/-"];
+        [self.calculatorModel pushOntoStack:@"+/-"];
         [self updateDisplay];
     }
 }
 
 - (IBAction)clearPressed { // reset
-    [self.brain clearStack];
+    [self.calculatorModel clearStack];
     self.enteringANumber = NO;
     [self updateDisplay];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ToGraph"]) {
-        // TODO
-        // [segue.destinationViewController setProgram:self.brain.program];
+        [segue.destinationViewController
+         setProgram:self.calculatorModel.program];
     }
 }
 

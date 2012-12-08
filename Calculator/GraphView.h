@@ -11,12 +11,16 @@
 @class GraphView; // forward reference
 
 @protocol GraphViewDataSource // GraphViewController implements this
-
 - (NSArray *)pointsForGraphView:(GraphView *)sender;
-
 @end
 
 @interface GraphView : UIView
-@property (readonly) CGFloat scale;
-@property (readonly) CGPoint origin;
+@property (nonatomic, weak) IBOutlet id <GraphViewDataSource> dataSource;
+
+// Values for calculating points
+@property CGFloat xMaximum;
+@property CGFloat xMinimum;
+@property CGFloat yMinimum;
+@property CGFloat yMaximum;
+@property int totalHorizontalPoints;
 @end

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GraphViewController : UIViewController
-
+@property (nonatomic) id program;
 @end

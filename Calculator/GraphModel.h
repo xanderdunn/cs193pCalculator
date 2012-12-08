@@ -10,8 +10,11 @@
 
 @interface GraphModel : NSObject
 
-- (NSArray *)calculatePointsAtOrigin:(CGPoint)axisOrigin
-                                withScale:(CGFloat)pointsPerUnit;
+- (NSArray *)calculatePointsWithXMinimum:(float)xMinimum
+                            withXMaximum:(float)xMaximum
+                            withYMinimum:(float)yMinimum
+                            withYMaximum:(float)yMaximum
+                         withTotalPoints:(int)total;
 
 @property (nonatomic) id program;
 
