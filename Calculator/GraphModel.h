@@ -14,7 +14,7 @@
                             withXMaximum:(float)xMaximum
                             withYMinimum:(float)yMinimum
                             withYMaximum:(float)yMaximum
-                         withTotalPoints:(int)total;
+                           withIncrement:(float)increment;
 
 @property (nonatomic) id program;
 

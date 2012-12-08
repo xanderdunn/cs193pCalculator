@@ -28,8 +28,8 @@
     _programDisplay = programDisplay;
     
     // It should always have the value of the program's description
-    self.programDisplay.text = [CalculatorModel
-                                descriptionOfProgram:self.program];
+    self.programDisplay.text = [@"y = " stringByAppendingString:[CalculatorModel
+                                descriptionOfProgram:self.program]];
 }
 
 - (void)setGraphView:(GraphView *)graphView {
@@ -47,8 +47,7 @@
                                            withXMaximum:sender.xMaximum
                                            withYMinimum:sender.yMinimum
                                            withYMaximum:sender.yMaximum
-                                        withTotalPoints:
-            sender.totalHorizontalPoints];
+                                        withIncrement:sender.increment];
 }
 
 // TODO: Pinch Gesture, adjust scale

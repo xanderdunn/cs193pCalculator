@@ -41,7 +41,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    //CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
     // default origin
     self.origin = CGPointMake(rect.size.width/2, rect.size.height/2);
@@ -52,10 +52,10 @@
     [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
     
     // Convert View Coordinates --> Axes Coordinates
-    self.totalHorizontalPoints = rect.size.width;
     self.xMaximum = (rect.size.width - self.origin.x)/self.scale;
     NSLog(@"xMaximum = %f", self.xMaximum);
     self.xMinimum = self.xMaximum - (rect.size.width/self.scale);
+    self.increment = fabs(self.xMaximum-self.xMinimum)/rect.size.width;
     NSLog(@"xMinimum = %f", self.xMinimum);
     self.yMaximum = self.origin.y/self.scale;
     NSLog(@"yMaximum = %f", self.yMaximum);
@@ -66,13 +66,26 @@
     NSArray *points = [self.dataSource pointsForGraphView:self];
     NSLog(@"points = %@", points);
     
-    for (NSNumber *xValue in points) {
-        // NSLog(@"xValue = %@", xValue);
-        // TODO: Plot a line between two points
+    CGFloat xValue = self.xMinimum + 1;
+    CGContextSetLineWidth(context, 1.0);
+    [[UIColor blueColor] setStroke];
+    // CGContextBeginPath(context);
+    CGContextMoveToPoint(context, xValue, [[points objectAtIndex:0] floatValue]*
+                         self.scale);
+    
+    // FIXME: Somewhere, convestion between view and model coordinate systems
+    //  is messed up
+    for (int i = 1; i < [points count]; i++) {
+        CGFloat yValue = [[points objectAtIndex:i] floatValue];
+        UIGraphicsPushContext(context);
+        CGContextAddLineToPoint(context, xValue, yValue * self.scale);
+        UIGraphicsPopContext();
+        xValue++; // move forward
     }
+    CGContextStrokePath(context);
     
     NSLog(@"self.contentScalingFactor = %f", self.contentScaleFactor);
-
+    
 }
 
 @end

@@ -22,5 +22,5 @@
 @property CGFloat xMinimum;
 @property CGFloat yMinimum;
 @property CGFloat yMaximum;
-@property int totalHorizontalPoints;
+@property CGFloat increment;
 @end

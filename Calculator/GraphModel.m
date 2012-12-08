@@ -16,11 +16,10 @@
                             withXMaximum:(float)xMaximum
                             withYMinimum:(float)yMinimum
                             withYMaximum:(float)yMaximum
-                         withTotalPoints:(int)total {
+                           withIncrement:(float)increment {
     
     NSMutableArray *points = [[NSMutableArray alloc] init]; // must alloc init
     NSDictionary *variableValues;
-    float increment = fabs(xMaximum - xMinimum)/total;
     
     // TODO
     for (float x = xMinimum; x < xMaximum; x += increment) { // Iterate all x
@@ -37,8 +36,6 @@
             [points addObject:yValue];
         }
     }
-    NSLog(@"points count = %u", [points count]);
-    NSLog(@"expected total = %i", total);
     return [points copy]; // return immutable copy
 }
 
