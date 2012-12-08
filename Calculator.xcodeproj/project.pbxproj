@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8404DD5D16739D7B00C92E44 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8404DD5C16739D7B00C92E44 /* iPad.storyboard */; };
 		84149346166509D800E39ADB /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84149345166509D800E39ADB /* CalculatorModel.m */; };
 		844D48931664AC7200990B7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844D48921664AC7200990B7A /* UIKit.framework */; };
 		844D48951664AC7200990B7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844D48941664AC7200990B7A /* Foundation.framework */; };
@@ -17,7 +18,7 @@
 		844D48A51664AC7200990B7A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 844D48A41664AC7200990B7A /* Default.png */; };
 		844D48A71664AC7200990B7A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844D48A61664AC7200990B7A /* Default@2x.png */; };
 		844D48A91664AC7200990B7A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 844D48A81664AC7200990B7A /* Default-568h@2x.png */; };
-		844D48AC1664AC7200990B7A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844D48AA1664AC7200990B7A /* MainStoryboard.storyboard */; };
+		844D48AC1664AC7200990B7A /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844D48AA1664AC7200990B7A /* iPhone.storyboard */; };
 		844D48AF1664AC7200990B7A /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844D48AE1664AC7200990B7A /* CalculatorViewController.m */; };
 		84AE463116723FF500B455B0 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE463016723FF500B455B0 /* AxesDrawer.m */; };
 		84AE46361672453D00B455B0 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AE46351672453D00B455B0 /* GraphView.m */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		8404DD5C16739D7B00C92E44 /* iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
 		84149344166509D800E39ADB /* CalculatorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorModel.h; sourceTree = "<group>"; };
 		84149345166509D800E39ADB /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorModel.m; sourceTree = "<group>"; };
 		844D488E1664AC7200990B7A /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,7 +54,7 @@
 		844D48A41664AC7200990B7A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		844D48A61664AC7200990B7A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		844D48A81664AC7200990B7A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		844D48AB1664AC7200990B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		844D48AB1664AC7200990B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPhone.storyboard; sourceTree = "<group>"; };
 		844D48AD1664AC7200990B7A /* CalculatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorViewController.h; sourceTree = "<group>"; };
 		844D48AE1664AC7200990B7A /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 		84AE462F16723FF500B455B0 /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
@@ -113,12 +115,13 @@
 			children = (
 				844D48A11664AC7200990B7A /* CalculatorAppDelegate.h */,
 				844D48A21664AC7200990B7A /* CalculatorAppDelegate.m */,
-				844D48AA1664AC7200990B7A /* MainStoryboard.storyboard */,
+				844D48AA1664AC7200990B7A /* iPhone.storyboard */,
 				84149344166509D800E39ADB /* CalculatorModel.h */,
 				84149345166509D800E39ADB /* CalculatorModel.m */,
 				844D48AD1664AC7200990B7A /* CalculatorViewController.h */,
 				844D48AE1664AC7200990B7A /* CalculatorViewController.m */,
 				844D48991664AC7200990B7A /* Supporting Files */,
+				8404DD5C16739D7B00C92E44 /* iPad.storyboard */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -216,7 +219,8 @@
 				844D48A51664AC7200990B7A /* Default.png in Resources */,
 				844D48A71664AC7200990B7A /* Default@2x.png in Resources */,
 				844D48A91664AC7200990B7A /* Default-568h@2x.png in Resources */,
-				844D48AC1664AC7200990B7A /* MainStoryboard.storyboard in Resources */,
+				844D48AC1664AC7200990B7A /* iPhone.storyboard in Resources */,
+				8404DD5D16739D7B00C92E44 /* iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,12 +253,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		844D48AA1664AC7200990B7A /* MainStoryboard.storyboard */ = {
+		844D48AA1664AC7200990B7A /* iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				844D48AB1664AC7200990B7A /* en */,
 			);
-			name = MainStoryboard.storyboard;
+			name = iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -318,6 +322,7 @@
 				INFOPLIST_FILE = "Calculator/Calculator-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -330,6 +335,7 @@
 				INFOPLIST_FILE = "Calculator/Calculator-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

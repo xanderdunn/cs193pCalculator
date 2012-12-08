@@ -58,6 +58,11 @@
     return [self.dataSource pointsForGraphView:self];
 }
 
+// TODO: Improve performance of panning
+//      Move what is already drawn and redrawn only what is needed?
+// TODO: Put origin and scale into NSUserDefaults
+// TODO: Universal App
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
