@@ -17,6 +17,7 @@
 @implementation GraphView
 
 @synthesize scale = _scale;
+@synthesize origin = _origin;
 
 - (CGFloat)scale {
     if (!_scale) return 50.0;
@@ -62,9 +63,10 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // default origin
-    self.origin = CGPointMake(rect.size.width/2,
-                                                rect.size.height/2);
-    //self.scale = 50; // default scale
+    if (!self.origin.x && !self.origin.y) {
+        self.origin = CGPointMake(rect.size.width/2,
+                                  rect.size.height/2);
+    }
     
     [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
     
@@ -76,15 +78,31 @@
     CGContextSetLineWidth(context, 1.0);
     [[UIColor blueColor] setStroke];
     UIGraphicsPushContext(context);
-
-    if ([data isKindOfClass:[NSArray class]]) { // it is a curve
+    
+    // FIXME: Graph disappears when x-axis disappears at the top of the screen
+    
+    if ([data isKindOfClass:[NSArray class]] && [data count]) { // curve
+//        int j = 0;
+//        while ([data objectAtIndex:j] == [NSNumber numberWithFloat:NAN]) {
+//            j++;
+//        }
         CGContextMoveToPoint(context, xValue,
                              [self convertYValue:
                               [[data objectAtIndex:0] floatValue]]);
         for (int i = 1; i < [data count]; i++) { // plot all points in array
             xValue+=1/self.contentScaleFactor; // move forward by pixel
-            CGFloat yValue = [[data objectAtIndex:i] floatValue];
-            CGContextAddLineToPoint(context, xValue, [self convertYValue:yValue]);
+            NSNumber *yValue = [data objectAtIndex:i];
+            CGFloat yValueFloat = [yValue floatValue];
+            if (yValue == [NSNumber numberWithFloat:NAN]) {
+                CGContextMoveToPoint(context, xValue,
+                                     [self convertYValue:yValueFloat]);
+            } else if ([data objectAtIndex:i-1] ==
+                       [NSNumber numberWithFloat:NAN]) {
+                // Don't use 
+                CGContextMoveToPoint(context, xValue,
+                                     [self convertYValue:yValueFloat]);
+            } else CGContextAddLineToPoint(context, xValue,
+                                           [self convertYValue:yValueFloat]);
         }
     } else if ([data isKindOfClass:[NSNumber class]]) { // constant value
         UIGraphicsPushContext(context);
@@ -96,11 +114,28 @@
     UIGraphicsPopContext();
 }
 
-- (void)pinch:(UIPinchGestureRecognizer *)gesture {
+- (void)pinch:(UIPinchGestureRecognizer *)gesture { // change scale on pinch
     if ((gesture.state == UIGestureRecognizerStateChanged) ||
         (gesture.state == UIGestureRecognizerStateEnded)) {
         self.scale *= gesture.scale;
         gesture.scale = 1; // reset the gesture to 1
+    }
+}
+
+- (void)pan:(UIPanGestureRecognizer *)gesture { // change origin on pan
+    if ((gesture.state == UIGestureRecognizerStateChanged) ||
+        (gesture.state == UIGestureRecognizerStateEnded)) {
+        CGPoint translation = [gesture translationInView:self];
+        self.origin = CGPointMake(self.origin.x + translation.x/2,
+                                  self.origin.y + translation.y/2);
+        // We want incremental changes, so reset
+        [gesture setTranslation:CGPointZero inView:self];
+    }
+}
+
+- (void)tripleTap:(UITapGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        self.origin = [gesture locationInView:self];
     }
 }
 

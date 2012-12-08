@@ -34,10 +34,8 @@
             NSNumber *yValue = [CalculatorModel runProgram:self.program
                                        usingVariableValues:variableValues];
             if ([yValue floatValue] <= yMaximum &&
-                [yValue floatValue] >= yMinimum)
-            { // Do not add the point if it is outside the visible viewing area
-                [points addObject:yValue];
-            }
+                [yValue floatValue] >= yMinimum) [points addObject:yValue];
+            else [points addObject:[NSNumber numberWithFloat:NAN]];
         }
         return [points copy]; // return immutable array
     }

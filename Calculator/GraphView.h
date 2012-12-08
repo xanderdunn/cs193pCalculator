@@ -24,5 +24,7 @@
 @property CGFloat increment;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
+- (void)pan:(UIPanGestureRecognizer *)gesture;
+- (void)tripleTap:(UITapGestureRecognizer *)gesture;
 
 @end
