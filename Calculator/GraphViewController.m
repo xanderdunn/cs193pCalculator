@@ -33,14 +33,12 @@
 }
 
 - (void)setGraphView:(GraphView *)graphView {
-    NSLog(@"I am setting the graph view now");
     _graphView = graphView;
     self.graphView.dataSource = self; // GraphViewController is the dataSource
 }
 
 - (NSArray *)pointsForGraphView:(GraphView *)sender {
     self.graphModel.program = self.program; // Update model's program
-    NSLog(@"sender.xMinimum = %f", sender.xMinimum);
     
     // Pass data to the view
     return [self.graphModel calculatePointsWithXMinimum:sender.xMinimum

@@ -26,11 +26,8 @@
         variableValues = [NSDictionary dictionaryWithObject:
                           [NSNumber numberWithFloat:x] forKey:@"x"];
         
-        NSLog(@"variableValues = %@", variableValues);
-        
         NSNumber *yValue = [CalculatorModel runProgram:self.program
                                    usingVariableValues:variableValues];
-        NSLog(@"yValue = %@", yValue);
         if ([yValue floatValue] <= yMaximum && [yValue floatValue] >= yMinimum)
         { // Do not add the point if it is outside the visible viewing area
             [points addObject:yValue];

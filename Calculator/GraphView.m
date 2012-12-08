@@ -39,6 +39,13 @@
     return self;
 }
 
+// Take a y-value in the coordinate system of the model and convert to the
+//  View's coordinate system
+- (CGFloat)convertYValue:(CGFloat)yValue {
+    if (self.origin.y > 0) return self.origin.y - (yValue * self.scale);
+    else return (yValue * self.scale) + self.origin.y;
+}
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -46,43 +53,33 @@
     // default origin
     self.origin = CGPointMake(rect.size.width/2, rect.size.height/2);
     self.scale = 50; // default scale
-    NSLog(@"rect.size.height = %f", rect.size.height);
-    NSLog(@"rect.size.width = %f", rect.size.width);
     
     [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
     
     // Convert View Coordinates --> Axes Coordinates
     self.xMaximum = (rect.size.width - self.origin.x)/self.scale;
-    NSLog(@"xMaximum = %f", self.xMaximum);
     self.xMinimum = self.xMaximum - (rect.size.width/self.scale);
     self.increment = fabs(self.xMaximum-self.xMinimum)/rect.size.width;
-    NSLog(@"xMinimum = %f", self.xMinimum);
     self.yMaximum = self.origin.y/self.scale;
-    NSLog(@"yMaximum = %f", self.yMaximum);
     self.yMinimum = self.yMaximum - (rect.size.height/self.scale);
-    NSLog(@"yMinimum = %f", self.yMinimum);
     
     // Get data points
     NSArray *points = [self.dataSource pointsForGraphView:self];
-    NSLog(@"points = %@", points);
     
-    CGFloat xValue = self.xMinimum + 1;
+    CGFloat xValue = 0;
     CGContextSetLineWidth(context, 1.0);
     [[UIColor blueColor] setStroke];
-    // CGContextBeginPath(context);
-    CGContextMoveToPoint(context, xValue, [[points objectAtIndex:0] floatValue]*
-                         self.scale);
+    CGContextMoveToPoint(context, xValue,
+                         [self convertYValue:
+                          [[points objectAtIndex:0] floatValue]]);
     
-// FIXME: 
-    // FIXME: Use pixels rather than points for the x values/incrementlo
+    // FIXME: Use pixels rather than points for the x values/increment
     for (int i = 1; i < [points count]; i++) {
+        xValue++; // move forward
         CGFloat yValue = [[points objectAtIndex:i] floatValue];
         UIGraphicsPushContext(context);
-        if (self.origin.y > 0) yValue = self.origin.y - (yValue * self.scale);
-        else yValue = (yValue * self.scale) + self.origin.y;
-        CGContextAddLineToPoint(context, xValue, yValue);
+        CGContextAddLineToPoint(context, xValue, [self convertYValue:yValue]);
         UIGraphicsPopContext();
-        xValue++; // move forward
     }
     CGContextStrokePath(context);
     
