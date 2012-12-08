@@ -12,28 +12,35 @@
 @implementation GraphModel
 
 // Iterate across all x-values to get y-values for plotting
-- (NSArray *)calculatePointsWithXMinimum:(float)xMinimum
-                            withXMaximum:(float)xMaximum
-                            withYMinimum:(float)yMinimum
-                            withYMaximum:(float)yMaximum
-                           withIncrement:(float)increment {
+// Return an NSNumber if the program contains no variables
+// Return NSDictionary of values otherwise
+- (id)calculatePointsWithXMinimum:(float)xMinimum
+                     withXMaximum:(float)xMaximum
+                     withYMinimum:(float)yMinimum
+                     withYMaximum:(float)yMaximum
+                    withIncrement:(float)increment {
     
-    NSMutableArray *points = [[NSMutableArray alloc] init]; // must alloc init
-    NSDictionary *variableValues;
-    
-    // TODO
-    for (float x = xMinimum; x < xMaximum; x += increment) { // Iterate all x
-        variableValues = [NSDictionary dictionaryWithObject:
-                          [NSNumber numberWithFloat:x] forKey:@"x"];
+    if (![self.program containsObject:@"x"]) {
+        return [CalculatorModel runProgram:self.program
+                       usingVariableValues:nil];
+    } else {
+        NSMutableArray *points = [[NSMutableArray alloc] init];
+        NSDictionary *variableValues;
         
-        NSNumber *yValue = [CalculatorModel runProgram:self.program
-                                   usingVariableValues:variableValues];
-        if ([yValue floatValue] <= yMaximum && [yValue floatValue] >= yMinimum)
-        { // Do not add the point if it is outside the visible viewing area
-            [points addObject:yValue];
+        for (float x = xMinimum; x < xMaximum; x += increment) { // Iterate x
+            variableValues = [NSDictionary dictionaryWithObject:
+                              [NSNumber numberWithFloat:x] forKey:@"x"];
+            
+            NSNumber *yValue = [CalculatorModel runProgram:self.program
+                                       usingVariableValues:variableValues];
+            if ([yValue floatValue] <= yMaximum &&
+                [yValue floatValue] >= yMinimum)
+            { // Do not add the point if it is outside the visible viewing area
+                [points addObject:yValue];
+            }
         }
+        return [points copy]; // return immutable array
     }
-    return [points copy]; // return immutable copy
 }
 
 @end

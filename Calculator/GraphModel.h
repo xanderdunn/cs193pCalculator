@@ -10,7 +10,7 @@
 
 @interface GraphModel : NSObject
 
-- (NSArray *)calculatePointsWithXMinimum:(float)xMinimum
+- (id)calculatePointsWithXMinimum:(float)xMinimum
                             withXMaximum:(float)xMaximum
                             withYMinimum:(float)yMinimum
                             withYMaximum:(float)yMaximum

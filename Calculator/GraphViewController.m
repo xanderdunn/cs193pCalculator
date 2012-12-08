@@ -28,12 +28,16 @@
     _programDisplay = programDisplay;
     
     // It should always have the value of the program's description
-    self.programDisplay.text = [@"y = " stringByAppendingString:[CalculatorModel
-                                descriptionOfProgram:self.program]];
+    self.programDisplay.text = [@"y = " stringByAppendingString:[CalculatorModel descriptionOfProgram:self.program]];
 }
 
 - (void)setGraphView:(GraphView *)graphView {
     _graphView = graphView;
+    // Create the gesture recognizers
+    [self.graphView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]
+                                         initWithTarget:self.graphView
+                                         action:@selector(pinch:)]];
+
     self.graphView.dataSource = self; // GraphViewController is the dataSource
 }
 
@@ -45,7 +49,7 @@
                                            withXMaximum:sender.xMaximum
                                            withYMinimum:sender.yMinimum
                                            withYMaximum:sender.yMaximum
-                                        withIncrement:sender.increment];
+                                          withIncrement:sender.increment];
 }
 
 // TODO: Pinch Gesture, adjust scale

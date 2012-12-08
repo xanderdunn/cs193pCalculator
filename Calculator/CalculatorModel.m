@@ -235,10 +235,12 @@
 // Evaluates a program by substituting variable values and then calling
 //  runProgram
 // Variables names are NSDictionary keys and variable values are objects
-+ (id)runProgram:(id)program
++ (NSNumber *)runProgram:(id)program
 usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorModel variablesUsedInProgram:program];
     NSMutableArray *mutableProgram;
+    
+    if ([program count] == 0) return [NSNumber numberWithFloat:NAN];
     
     // replace variables with values
     if ([program isKindOfClass:[NSArray class]]) { // NSArray?

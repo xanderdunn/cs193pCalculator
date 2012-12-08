@@ -20,7 +20,7 @@
 @implementation CalculatorViewController
 
 - (void)updateDisplay { // Update all aspects of the display on changes
-    id result = [CalculatorModel runProgram:self.calculatorModel.program
+    NSNumber *result = [CalculatorModel runProgram:self.calculatorModel.program
                         usingVariableValues:nil];
     self.display.text = [NSString stringWithFormat:@"%@", result];
     self.programDisplay.text = [CalculatorModel descriptionOfProgram:
