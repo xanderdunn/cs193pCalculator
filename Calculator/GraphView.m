@@ -73,12 +73,14 @@
     CGContextMoveToPoint(context, xValue, [[points objectAtIndex:0] floatValue]*
                          self.scale);
     
-    // FIXME: Somewhere, convestion between view and model coordinate systems
-    //  is messed up
+// FIXME: 
+    // FIXME: Use pixels rather than points for the x values/incrementlo
     for (int i = 1; i < [points count]; i++) {
         CGFloat yValue = [[points objectAtIndex:i] floatValue];
         UIGraphicsPushContext(context);
-        CGContextAddLineToPoint(context, xValue, yValue * self.scale);
+        if (self.origin.y > 0) yValue = self.origin.y - (yValue * self.scale);
+        else yValue = (yValue * self.scale) + self.origin.y;
+        CGContextAddLineToPoint(context, xValue, yValue);
         UIGraphicsPopContext();
         xValue++; // move forward
     }
