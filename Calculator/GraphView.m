@@ -46,6 +46,19 @@
     else return (yValue * self.scale) + self.origin.y;
 }
 
+- (NSArray *)askForDataUsingRect:(CGRect)rect {
+    // Convert View Coordinates --> Axes Coordinates
+    self.xMaximum = (rect.size.width - self.origin.x)/self.scale;
+    self.xMinimum = self.xMaximum - (rect.size.width/self.scale);
+    self.increment = fabs(self.xMaximum-self.xMinimum)/rect.size.width
+    /self.contentScaleFactor;
+    self.yMaximum = self.origin.y/self.scale;
+    self.yMinimum = self.yMaximum - (rect.size.height/self.scale);
+    
+    // Get data points
+    return [self.dataSource pointsForGraphView:self];
+}
+
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -56,15 +69,7 @@
     
     [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
     
-    // Convert View Coordinates --> Axes Coordinates
-    self.xMaximum = (rect.size.width - self.origin.x)/self.scale;
-    self.xMinimum = self.xMaximum - (rect.size.width/self.scale);
-    self.increment = fabs(self.xMaximum-self.xMinimum)/rect.size.width;
-    self.yMaximum = self.origin.y/self.scale;
-    self.yMinimum = self.yMaximum - (rect.size.height/self.scale);
-    
-    // Get data points
-    NSArray *points = [self.dataSource pointsForGraphView:self];
+    NSArray *points = [self askForDataUsingRect:rect];
     
     CGFloat xValue = 0;
     CGContextSetLineWidth(context, 1.0);
@@ -73,18 +78,14 @@
                          [self convertYValue:
                           [[points objectAtIndex:0] floatValue]]);
     
-    // FIXME: Use pixels rather than points for the x values/increment
     for (int i = 1; i < [points count]; i++) {
-        xValue++; // move forward
+        xValue+=1/self.contentScaleFactor; // move forward by pixel
         CGFloat yValue = [[points objectAtIndex:i] floatValue];
         UIGraphicsPushContext(context);
         CGContextAddLineToPoint(context, xValue, [self convertYValue:yValue]);
         UIGraphicsPopContext();
     }
     CGContextStrokePath(context);
-    
-    NSLog(@"self.contentScalingFactor = %f", self.contentScaleFactor);
-    
 }
 
 @end
