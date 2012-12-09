@@ -8,7 +8,7 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorModel.h"
-#import "GraphViewController.h" // Need to communicate to destination controller
+#import "GraphViewController.h" // Need to send program to destination
 
 @interface CalculatorViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *display;
@@ -21,10 +21,13 @@
 
 - (void)updateDisplay { // Update all aspects of the display on changes
     NSNumber *result = [CalculatorModel runProgram:self.calculatorModel.program
-                        usingVariableValues:nil];
+                               usingVariableValues:nil];
     self.display.text = [NSString stringWithFormat:@"%@", result];
     self.programDisplay.text = [CalculatorModel descriptionOfProgram:
                                 self.calculatorModel.program];
+    // Get the detail UIViewController, and set the program
+    id detailViewController = [[self.splitViewController viewControllers] lastObject];
+    [detailViewController programChanged:self.calculatorModel.program];
 }
 
 - (CalculatorModel *)calculatorModel { // overload getter for lazy instantiation
@@ -108,7 +111,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ToGraph"]) {
         [segue.destinationViewController
-         setProgram:self.calculatorModel.program];
+         programChanged:self.calculatorModel.program];
     }
 }
 
