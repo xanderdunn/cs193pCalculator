@@ -11,13 +11,41 @@
 #import "GraphView.h"   // GraphViewController's view
 #import "CalculatorModel.h" // Need a CalculatorModel class method
 
-@interface GraphViewController () <GraphViewDataSource>
+@interface GraphViewController () <GraphViewDataSource,
+UISplitViewControllerDelegate>
 @property (nonatomic) GraphModel *graphModel;
 @property (nonatomic) IBOutlet GraphView *graphView;
 @property (weak, nonatomic) IBOutlet UILabel *programDisplay;
+@property (nonatomic) IBOutlet UIToolbar *toolbar;
 @end
 
 @implementation GraphViewController
+@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
+// Helper function for splitViewBarButonItem setter
+- (void)handleSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+    if (_splitViewBarButtonItem) { // Remove old button if it exists
+        [toolbarItems removeObject:_splitViewBarButtonItem];
+    }
+    if (splitViewBarButtonItem) { // Add new button if it exists
+        [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+    }
+    self.toolbar.items = toolbarItems;
+    _splitViewBarButtonItem = splitViewBarButtonItem;
+}
+
+// Setter for the splitViewBarButtonItem
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        // Update only if the old is different from the new
+        [self handleSplitViewBarButtonItem:splitViewBarButtonItem];
+    }
+}
+
+- (void)viewDidLoad { // Disable pop-over appearance on swipe gesture
+    self.splitViewController.presentsWithGesture = NO;
+}
 
 - (void)programChanged:(id)program { // Update the graph on program change
     self.graphModel.program = program;
@@ -51,7 +79,7 @@
     self.graphView.dataSource = self; // GraphViewController is the dataSource
 }
 
-- (NSArray *)pointsForGraphView:(GraphView *)sender {    
+- (NSArray *)pointsForGraphView:(GraphView *)sender {
     // Pass data to the view
     return [self.graphModel calculatePointsWithXMinimum:sender.xMinimum
                                            withXMaximum:sender.xMaximum

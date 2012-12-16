@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RotatableViewController.h"
 
-@interface CalculatorViewController : UIViewController
+@interface CalculatorViewController : RotatableViewController
 @end

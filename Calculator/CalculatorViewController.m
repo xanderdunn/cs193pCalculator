@@ -26,8 +26,11 @@
     self.programDisplay.text = [CalculatorModel descriptionOfProgram:
                                 self.calculatorModel.program];
     // Get the detail UIViewController, and set the program
-    id detailViewController = [[self.splitViewController viewControllers] lastObject];
-    [detailViewController programChanged:self.calculatorModel.program];
+    if (self.splitViewController) {
+        id detailViewController = [[self.splitViewController viewControllers]
+                                   lastObject];
+        [detailViewController programChanged:self.calculatorModel.program];
+    }
 }
 
 - (CalculatorModel *)calculatorModel { // overload getter for lazy instantiation

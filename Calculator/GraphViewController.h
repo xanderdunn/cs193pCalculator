@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
 
 @interface GraphViewController : UIViewController
+<SplitViewBarButtonItemPresenter>
 - (void)programChanged:(id)program;
 @end

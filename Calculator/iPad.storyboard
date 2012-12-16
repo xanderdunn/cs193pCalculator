@@ -21,7 +21,7 @@
         <!--Calculator View Controller - Calculator-->
         <scene sceneID="vjB-kv-uRT">
             <objects>
-                <viewController id="bpT-GH-cez" customClass="CalculatorViewController" sceneMemberID="viewController">
+                <viewController title="Calculator" id="bpT-GH-cez" customClass="CalculatorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mib-bb-3Y3">
                         <rect key="frame" x="0.0" y="20" width="320" height="832"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -551,11 +551,17 @@
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="DCH-gF-BWN" customClass="GraphView">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkH-Mi-OqQ">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkH-Mi-OqQ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Z4r-rE-h1f"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTU-TI-F7a">
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -564,7 +570,10 @@
                             <constraint firstItem="nkH-Mi-OqQ" firstAttribute="leading" secondItem="g2h-sb-CEU" secondAttribute="leading" type="default" id="IgW-5V-Ciq"/>
                             <constraint firstItem="nkH-Mi-OqQ" firstAttribute="trailing" secondItem="g2h-sb-CEU" secondAttribute="trailing" type="default" id="LAU-ZC-5go"/>
                             <constraint firstAttribute="trailing" secondItem="DCH-gF-BWN" secondAttribute="trailing" constant="-5" id="SAI-9h-QDy"/>
-                            <constraint firstItem="DCH-gF-BWN" firstAttribute="top" secondItem="g2h-sb-CEU" secondAttribute="top" type="default" id="ejM-Wn-oGV"/>
+                            <constraint firstItem="LTU-TI-F7a" firstAttribute="leading" secondItem="g2h-sb-CEU" secondAttribute="leading" type="default" id="WkB-Gw-Oct"/>
+                            <constraint firstItem="LTU-TI-F7a" firstAttribute="trailing" secondItem="g2h-sb-CEU" secondAttribute="trailing" type="default" id="X5F-65-gWV"/>
+                            <constraint firstItem="LTU-TI-F7a" firstAttribute="top" secondItem="g2h-sb-CEU" secondAttribute="top" type="default" id="Xmg-yz-sIy"/>
+                            <constraint firstItem="DCH-gF-BWN" firstAttribute="top" secondItem="LTU-TI-F7a" secondAttribute="bottom" type="default" id="fzF-Tw-9h2"/>
                             <constraint firstItem="nkH-Mi-OqQ" firstAttribute="bottom" secondItem="g2h-sb-CEU" secondAttribute="bottom" type="default" id="yC5-Fr-UHF"/>
                         </constraints>
                     </view>
@@ -573,6 +582,7 @@
                     <connections>
                         <outlet property="graphView" destination="DCH-gF-BWN" id="BqM-Hg-OpK"/>
                         <outlet property="programDisplay" destination="nkH-Mi-OqQ" id="1TM-wt-1lU"/>
+                        <outlet property="toolbar" destination="LTU-TI-F7a" id="xYl-Qo-yeg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMO-pb-4Gt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -581,11 +591,9 @@
         </scene>
     </scenes>
     <classes>
-        <class className="CalculatorViewController" superclassName="UIViewController">
+        <class className="CalculatorViewController" superclassName="RotatableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="bufferedItemPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="stackedItemPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
             </relationships>
@@ -601,10 +609,14 @@
             <relationships>
                 <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="RotatableViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
