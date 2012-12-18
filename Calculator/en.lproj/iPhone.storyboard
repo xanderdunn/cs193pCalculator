@@ -418,10 +418,10 @@
             </objects>
             <point key="canvasLocation" x="653" y="90"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Rotating Navigation View Controller-->
         <scene sceneID="BIy-ej-RX8">
             <objects>
-                <navigationController id="70H-gK-e4a" sceneMemberID="viewController">
+                <navigationController id="70H-gK-e4a" customClass="CustomRotatingNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q57-8f-cLi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -477,6 +477,9 @@
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
             </relationships>
+        </class>
+        <class className="CustomRotatingNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomRotatingNavigationViewController.h"/>
         </class>
         <class className="GraphView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>

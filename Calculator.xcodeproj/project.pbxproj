@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8404DD5D16739D7B00C92E44 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8404DD5C16739D7B00C92E44 /* iPad.storyboard */; };
 		84149346166509D800E39ADB /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84149345166509D800E39ADB /* CalculatorModel.m */; };
+		84279EB816802FE80074BDDF /* CustomRotatingNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84279EB716802FE80074BDDF /* CustomRotatingNavigationViewController.m */; };
 		844D48931664AC7200990B7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844D48921664AC7200990B7A /* UIKit.framework */; };
 		844D48951664AC7200990B7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844D48941664AC7200990B7A /* Foundation.framework */; };
 		844D48971664AC7200990B7A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844D48961664AC7200990B7A /* CoreGraphics.framework */; };
@@ -42,6 +43,8 @@
 		8404DD5C16739D7B00C92E44 /* iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
 		84149344166509D800E39ADB /* CalculatorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorModel.h; sourceTree = "<group>"; };
 		84149345166509D800E39ADB /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorModel.m; sourceTree = "<group>"; };
+		84279EB616802FE80074BDDF /* CustomRotatingNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRotatingNavigationViewController.h; sourceTree = "<group>"; };
+		84279EB716802FE80074BDDF /* CustomRotatingNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRotatingNavigationViewController.m; sourceTree = "<group>"; };
 		844D488E1664AC7200990B7A /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844D48921664AC7200990B7A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		844D48941664AC7200990B7A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -143,6 +146,8 @@
 				844D48A41664AC7200990B7A /* Default.png */,
 				844D48A61664AC7200990B7A /* Default@2x.png */,
 				844D48A81664AC7200990B7A /* Default-568h@2x.png */,
+				84279EB616802FE80074BDDF /* CustomRotatingNavigationViewController.h */,
+				84279EB716802FE80074BDDF /* CustomRotatingNavigationViewController.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				84AE463A1672456600B455B0 /* GraphViewController.m in Sources */,
 				84AE463D167251C800B455B0 /* GraphModel.m in Sources */,
 				847A5230167DD1A20036C0E9 /* RotatableViewController.m in Sources */,
+				84279EB816802FE80074BDDF /* CustomRotatingNavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

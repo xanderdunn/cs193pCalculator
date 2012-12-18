@@ -590,35 +590,6 @@
             <point key="canvasLocation" x="1265" y="570"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CalculatorViewController" superclassName="RotatableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="GraphView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dataSource"/>
-            </relationships>
-        </class>
-        <class className="GraphViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
-                <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RotatableViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

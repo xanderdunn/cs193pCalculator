@@ -49,9 +49,12 @@ UISplitViewControllerDelegate>
 
 - (void)programChanged:(id)program { // Update the graph on program change
     self.graphModel.program = program;
+    NSLog(@"programChanged called");
+    // FIXME: Why doesn't this work on iPhone?
     self.programDisplay.text = [@"y = " stringByAppendingString:
                                 [CalculatorModel
                                  descriptionOfProgram:program]];
+    NSLog(@"self.programDisplay.text: %@", self.programDisplay.text);
     [self.graphView setNeedsDisplay];
 }
 
@@ -86,6 +89,14 @@ UISplitViewControllerDelegate>
                                            withYMinimum:sender.yMinimum
                                            withYMaximum:sender.yMaximum
                                           withIncrement:sender.increment];
+}
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end
