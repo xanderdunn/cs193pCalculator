@@ -37,25 +37,32 @@ UISplitViewControllerDelegate>
 
 // Setter for the splitViewBarButtonItem
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
-    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
-        // Update only if the old is different from the new
-        [self handleSplitViewBarButtonItem:splitViewBarButtonItem];
+    if (self.splitViewController) {
+        if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+            // Update only if the old is different from the new
+            [self handleSplitViewBarButtonItem:splitViewBarButtonItem];
+        }
     }
 }
 
 - (void)viewDidLoad { // Disable pop-over appearance on swipe gesture
     self.splitViewController.presentsWithGesture = NO;
+    if (!self.splitViewController) { // Upadte label after IBOutlet set
+        self.programDisplay.text = [@"y = " stringByAppendingString:
+                                    [CalculatorModel
+                                     descriptionOfProgram:
+                                     self.graphModel.program]];
+    }
 }
 
 - (void)programChanged:(id)program { // Update the graph on program change
     self.graphModel.program = program;
-    NSLog(@"programChanged called");
-    // FIXME: Why doesn't this work on iPhone?
     self.programDisplay.text = [@"y = " stringByAppendingString:
                                 [CalculatorModel
                                  descriptionOfProgram:program]];
-    NSLog(@"self.programDisplay.text: %@", self.programDisplay.text);
-    [self.graphView setNeedsDisplay];
+    if (self.splitViewController) { // Need to update only if on iPad
+        [self.graphView setNeedsDisplay];
+    }
 }
 
 - (GraphModel *)graphModel { // overload getter for lazy instantiation

@@ -26,7 +26,7 @@
     self.programDisplay.text = [CalculatorModel descriptionOfProgram:
                                 self.calculatorModel.program];
     // Get the detail UIViewController, and set the program
-    if (self.splitViewController) {
+    if (self.splitViewController) { // Must be iPad
         id detailViewController = [[self.splitViewController viewControllers]
                                    lastObject];
         [detailViewController programChanged:self.calculatorModel.program];
