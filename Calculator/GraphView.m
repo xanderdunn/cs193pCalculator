@@ -10,8 +10,6 @@
 #import "AxesDrawer.h"
 
 @interface GraphView ()
-@property (nonatomic) CGFloat scale;
-@property (nonatomic) CGPoint origin;
 @end
 
 @implementation GraphView
@@ -60,7 +58,6 @@
 
 // TODO: Improve performance of panning
 //      Move what is already drawn and redrawn only what is needed?
-// TODO: Put origin and scale into NSUserDefaults
 
 - (void)drawRect:(CGRect)rect
 {

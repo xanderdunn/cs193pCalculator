@@ -22,6 +22,8 @@
 @property CGFloat yMinimum;
 @property CGFloat yMaximum;
 @property CGFloat increment;
+@property (nonatomic) CGFloat scale;
+@property (nonatomic) CGPoint origin;
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture;
 - (void)pan:(UIPanGestureRecognizer *)gesture;
