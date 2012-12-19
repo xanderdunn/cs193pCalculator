@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 ThoughtAdvances. All rights reserved.
 //
 
+// TODO: Add a reset button
+
 #import "CalculatorViewController.h"
 #import "CalculatorModel.h"
 #import "GraphViewController.h" // Need to send program to destination

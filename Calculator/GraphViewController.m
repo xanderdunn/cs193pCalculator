@@ -45,7 +45,9 @@ UISplitViewControllerDelegate>
     }
 }
 
+// TODO: Also put the current program into NSUserDefaults
 - (void)viewWillAppear:(BOOL)animated { // Get NSUserDefaultsValues
+    [super viewWillAppear:animated];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     CGFloat x = [defaults floatForKey:@"originx"];
     CGFloat y = [defaults floatForKey:@"originy"];
@@ -54,6 +56,7 @@ UISplitViewControllerDelegate>
 }
 
 - (void)viewWillDisappear:(BOOL)animated { // Set NSUserDefaults
+    [super viewWillDisappear:animated];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setFloat:self.graphView.origin.x forKey:@"originx"];
     [defaults setFloat:self.graphView.origin.y forKey:@"originy"];
@@ -70,6 +73,7 @@ UISplitViewControllerDelegate>
                                      descriptionOfProgram:
                                      self.graphModel.program]];
     }
+    [super viewDidLoad];
 }
 
 - (void)programChanged:(id)program { // Update the graph on program change
