@@ -23,6 +23,7 @@
     return [self.programs count]; // number of programs in the array
 }
 
+// Define what to do to present each cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
 (NSIndexPath *)indexPath
 {

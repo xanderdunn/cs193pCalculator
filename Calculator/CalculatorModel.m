@@ -38,13 +38,14 @@
 }
 
 #define TWO_OPERAND_OPERATIONS @[@"+", @"*", @"-", @"/"]
-#define ONE_OPERAND_OPERATIONS @[@"sin", @"cos", @"sqrt", @"+/-", @"log"]
+#define ONE_OPERAND_OPERATIONS @[@"sin", @"cos", @"sqrt", @"log"]
 
+// FIXME: Break this monolithic function into small functions.  Reduce duplication
 // Process all values in a program, turning it into an array of one single
 //
 + (NSMutableArray *)formattedProgram:(NSMutableArray *)program {
     NSMutableArray *result = program;
-        
+    
     id operandA;
     id operandB;
     id operation;
@@ -54,6 +55,8 @@
     
     for (i = 0; i < [program count]; i++) {
         operation = [program objectAtIndex:i];
+        
+        // two operand situation
         if ([TWO_OPERAND_OPERATIONS containsObject:operation]) {
             if ((i - 1) < 0) { // Both operands are not in the stack
                 operandA = @"nan";
@@ -97,18 +100,40 @@
             
             [program replaceObjectAtIndex:i withObject:formattedString];
             result = [CalculatorModel formattedProgram:program];
-        } else if ([ONE_OPERAND_OPERATIONS containsObject:operation]) {
+        }
+        // One operand situation
+        else if ([ONE_OPERAND_OPERATIONS containsObject:operation]) {
             if ((i - 1) < 0) { // Operand is not in the stack
-                operandA = @"0";
-            } else {
+                operandA = @"0"; // Default to operand of 0
+            } else { // operand is in the stack
                 operandA = [program objectAtIndex:(i - 1)];
                 [program removeObjectAtIndex:(i - 1)];
                 i = i - 1; // correct insert position
             }
+            // Convert to string
             operandA = [NSString stringWithFormat: @"%@", operandA];
             NSString *formattedString = [NSString stringWithFormat:
                                          @"%@(%@)", operation, operandA];
             [program replaceObjectAtIndex:i withObject:formattedString];
+            result = [CalculatorModel formattedProgram:program];
+        }
+        
+        // evaluate sign changes
+        else if ([operation isEqualToString:@"+/-"]) {
+            if ((i - 1) < 0) { // Operand is not in the stack
+                operandA = @"0"; // Default to operand of 0
+            } else { // operand is in the stack
+                operandA = [program objectAtIndex:(i - 1)];
+                [program removeObjectAtIndex:(i - 1)];
+                i = i - 1; // correct insert position
+                operandA = [NSString stringWithFormat:@"%@", operandA];
+                if ([operandA characterAtIndex:0] == '-') {
+                    operandA = [operandA substringFromIndex:1];
+                } else { // add minus to the string
+                    operandA = [@"-" stringByAppendingString:operandA];
+                }
+            }
+            [program replaceObjectAtIndex:i withObject:operandA];
             result = [CalculatorModel formattedProgram:program];
         }
     }
@@ -121,11 +146,10 @@
 // Format an intelligent string describing the math operations
 + (NSString *)descriptionOfProgram:(id)program {
     
-    NSString *result = @"";
+    NSString *result = @""; // Needs to be initialized for later appending
     
     NSMutableArray *formatedProgram = [CalculatorModel formattedProgram:
                                        [program mutableCopy]];
-    
     NSUInteger count = [formatedProgram count];
     for (int i = count - 1; i > 0; i--) { // comma-separated NSString
         result = [result stringByAppendingFormat:@"%@, ",
