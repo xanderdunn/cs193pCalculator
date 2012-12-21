@@ -393,16 +393,6 @@
                                     <action selector="bufferedItemPressed:" destination="bpT-GH-cez" eventType="touchUpInside" id="nxS-IR-9PM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csd-6a-9pi">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Graph">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doh-gS-bQL">
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Dru-Da-X6d"/>
@@ -425,13 +415,11 @@
                             <constraint firstItem="sTg-M8-gxo" firstAttribute="leading" secondItem="Mib-bb-3Y3" secondAttribute="leading" constant="91" id="62o-MU-v65"/>
                             <constraint firstItem="45e-2P-f8b" firstAttribute="top" secondItem="dYF-Ab-PdJ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="7Ky-2B-cWM"/>
                             <constraint firstItem="doh-gS-bQL" firstAttribute="trailing" secondItem="Mib-bb-3Y3" secondAttribute="trailing" type="default" id="7Xc-tg-u44"/>
-                            <constraint firstItem="csd-6a-9pi" firstAttribute="baseline" secondItem="gwF-o9-6eD" secondAttribute="baseline" type="default" id="8Sd-2r-Yyu"/>
                             <constraint firstItem="HWR-Gf-RI9" firstAttribute="top" secondItem="AOY-OV-0F5" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9GA-e4-glm"/>
                             <constraint firstAttribute="trailing" secondItem="Auv-Mv-97j" secondAttribute="trailing" constant="15" id="AHR-3T-1li"/>
                             <constraint firstItem="sUn-k3-n4B" firstAttribute="trailing" secondItem="gwF-o9-6eD" secondAttribute="trailing" type="default" id="Axf-fR-IO2"/>
                             <constraint firstItem="4zG-hB-y08" firstAttribute="trailing" secondItem="RzL-6R-p7G" secondAttribute="trailing" type="default" id="BDo-o3-egC"/>
                             <constraint firstItem="dYF-Ab-PdJ" firstAttribute="baseline" secondItem="1lW-Yt-rld" secondAttribute="baseline" type="default" id="DXq-Jh-IvL"/>
-                            <constraint firstItem="8Dh-Hk-phw" firstAttribute="trailing" secondItem="csd-6a-9pi" secondAttribute="trailing" type="default" id="F6x-tm-NLt"/>
                             <constraint firstItem="gKs-Fx-8JT" firstAttribute="trailing" secondItem="Auv-Mv-97j" secondAttribute="trailing" type="default" id="HcR-Vg-NX8"/>
                             <constraint firstItem="NTr-q5-eV7" firstAttribute="trailing" secondItem="AOY-OV-0F5" secondAttribute="trailing" type="default" id="I5u-jY-xxc"/>
                             <constraint firstItem="HWR-Gf-RI9" firstAttribute="leading" secondItem="JY0-EX-DiF" secondAttribute="leading" type="default" id="IQ5-lg-MSx"/>
@@ -469,7 +457,6 @@
                             <constraint firstItem="Auv-Mv-97j" firstAttribute="baseline" secondItem="Red-sh-7WC" secondAttribute="baseline" type="default" id="jVF-Wc-Pug"/>
                             <constraint firstItem="HWR-Gf-RI9" firstAttribute="baseline" secondItem="sTg-M8-gxo" secondAttribute="baseline" type="default" id="k5P-Oe-XBU"/>
                             <constraint firstItem="sTg-M8-gxo" firstAttribute="baseline" secondItem="Red-sh-7WC" secondAttribute="baseline" type="default" id="mFk-Yc-YXK"/>
-                            <constraint firstItem="csd-6a-9pi" firstAttribute="baseline" secondItem="bop-pK-czG" secondAttribute="baseline" type="default" id="mht-TU-uil"/>
                             <constraint firstItem="doh-gS-bQL" firstAttribute="centerX" secondItem="NTr-q5-eV7" secondAttribute="centerX" type="default" id="mwY-JU-zmM"/>
                             <constraint firstItem="JY0-EX-DiF" firstAttribute="trailing" secondItem="dYF-Ab-PdJ" secondAttribute="trailing" type="default" id="ned-WX-NdI"/>
                             <constraint firstItem="k4p-s0-kYc" firstAttribute="baseline" secondItem="4zG-hB-y08" secondAttribute="baseline" type="default" id="nxt-KT-1A1"/>
@@ -480,13 +467,13 @@
                             <constraint firstItem="bop-pK-czG" firstAttribute="trailing" secondItem="Ni2-0S-pci" secondAttribute="trailing" type="default" id="pHk-61-sif"/>
                             <constraint firstItem="bop-pK-czG" firstAttribute="top" secondItem="Ni2-0S-pci" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="rcL-OX-B0Z"/>
                             <constraint firstItem="hPm-jr-cMG" firstAttribute="baseline" secondItem="cKN-gG-1Jn" secondAttribute="baseline" type="default" id="s9T-Ek-wJq"/>
-                            <constraint firstItem="csd-6a-9pi" firstAttribute="leading" secondItem="8Dh-Hk-phw" secondAttribute="leading" type="default" id="sUu-Gp-fju"/>
                             <constraint firstItem="gKs-Fx-8JT" firstAttribute="baseline" secondItem="o0h-bN-9Pi" secondAttribute="baseline" type="default" id="sZa-hD-qYF"/>
                             <constraint firstItem="Ffn-PX-5ve" firstAttribute="trailing" secondItem="45e-2P-f8b" secondAttribute="trailing" type="default" id="tMQ-oc-9El"/>
                             <constraint firstItem="Ni2-0S-pci" firstAttribute="baseline" secondItem="8Dh-Hk-phw" secondAttribute="baseline" type="default" id="tSd-LD-oLS"/>
                             <constraint firstItem="o0h-bN-9Pi" firstAttribute="leading" secondItem="4w6-rv-tVk" secondAttribute="leading" type="default" id="tvm-gI-NkJ"/>
                             <constraint firstItem="AOY-OV-0F5" firstAttribute="leading" secondItem="NTr-q5-eV7" secondAttribute="leading" type="default" id="uIY-f2-q7k"/>
                             <constraint firstItem="Ffn-PX-5ve" firstAttribute="leading" secondItem="Ni2-0S-pci" secondAttribute="leading" type="default" id="ukx-it-OBu"/>
+                            <constraint firstItem="gwF-o9-6eD" firstAttribute="baseline" secondItem="bop-pK-czG" secondAttribute="baseline" type="default" id="vbV-KO-ofj"/>
                             <constraint firstItem="hPm-jr-cMG" firstAttribute="baseline" secondItem="RzL-6R-p7G" secondAttribute="baseline" type="default" id="viB-DP-xWY"/>
                             <constraint firstItem="dYF-Ab-PdJ" firstAttribute="leading" secondItem="JY0-EX-DiF" secondAttribute="leading" type="default" id="vrn-Gn-oBB"/>
                             <constraint firstItem="cKN-gG-1Jn" firstAttribute="leading" secondItem="Lxx-Nz-pfy" secondAttribute="leading" type="default" id="vyh-l3-UAG"/>
@@ -520,43 +507,60 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="DCH-gF-BWN" customClass="GraphView">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKF-Tv-PPG">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="146" id="O4G-og-KLN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Add to Favorites">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addToFavorites:" destination="mZD-45-825" eventType="touchUpInside" id="iqY-MK-vyj"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkH-Mi-OqQ">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Z4r-rE-h1f"/>
+                                    <constraint firstAttribute="trailing" secondItem="EKF-Tv-PPG" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="8Ca-MR-0J7"/>
+                                    <constraint firstAttribute="bottom" secondItem="EKF-Tv-PPG" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="9WJ-DQ-bvW"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTU-TI-F7a">
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="OUl-8F-qAE"/>
-                                    <barButtonItem title="Graph" style="plain" id="eb7-Lk-4zp"/>
+                                    <barButtonItem tag="1" title="Graph" style="plain" id="eb7-Lk-4zp"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iSX-uE-Eg5"/>
+                                    <barButtonItem title="Favorites" id="cYJ-7E-drz">
+                                        <connections>
+                                            <segue destination="aMR-F4-Xrj" kind="popover" identifier="Favorites" popoverAnchorBarButtonItem="cYJ-7E-drz" id="y6g-Ci-94f">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DCH-gF-BWN" firstAttribute="leading" secondItem="g2h-sb-CEU" secondAttribute="leading" type="default" id="8gJ-dT-Qnw"/>
-                            <constraint firstAttribute="bottom" secondItem="DCH-gF-BWN" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="AQP-hz-es9"/>
-                            <constraint firstItem="nkH-Mi-OqQ" firstAttribute="leading" secondItem="g2h-sb-CEU" secondAttribute="leading" type="default" id="IgW-5V-Ciq"/>
-                            <constraint firstItem="nkH-Mi-OqQ" firstAttribute="trailing" secondItem="g2h-sb-CEU" secondAttribute="trailing" type="default" id="LAU-ZC-5go"/>
                             <constraint firstAttribute="trailing" secondItem="DCH-gF-BWN" secondAttribute="trailing" constant="-5" id="SAI-9h-QDy"/>
                             <constraint firstItem="LTU-TI-F7a" firstAttribute="leading" secondItem="g2h-sb-CEU" secondAttribute="leading" type="default" id="WkB-Gw-Oct"/>
                             <constraint firstItem="LTU-TI-F7a" firstAttribute="trailing" secondItem="g2h-sb-CEU" secondAttribute="trailing" type="default" id="X5F-65-gWV"/>
                             <constraint firstItem="LTU-TI-F7a" firstAttribute="top" secondItem="g2h-sb-CEU" secondAttribute="top" type="default" id="Xmg-yz-sIy"/>
                             <constraint firstItem="DCH-gF-BWN" firstAttribute="top" secondItem="LTU-TI-F7a" secondAttribute="bottom" type="default" id="fzF-Tw-9h2"/>
-                            <constraint firstItem="nkH-Mi-OqQ" firstAttribute="bottom" secondItem="g2h-sb-CEU" secondAttribute="bottom" type="default" id="yC5-Fr-UHF"/>
+                            <constraint firstItem="DCH-gF-BWN" firstAttribute="bottom" secondItem="g2h-sb-CEU" secondAttribute="bottom" type="default" id="gTA-6u-eGa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="NmO-Cu-8qf"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
                         <outlet property="graphView" destination="DCH-gF-BWN" id="BqM-Hg-OpK"/>
-                        <outlet property="programDisplay" destination="nkH-Mi-OqQ" id="1TM-wt-1lU"/>
                         <outlet property="toolbar" destination="LTU-TI-F7a" id="xYl-Qo-yeg"/>
                     </connections>
                 </viewController>
@@ -564,13 +568,52 @@
             </objects>
             <point key="canvasLocation" x="1265" y="570"/>
         </scene>
+        <!--Calculator Programs Table View Controller-->
+        <scene sceneID="6Vb-gI-yme">
+            <objects>
+                <tableViewController id="aMR-F4-Xrj" customClass="CalculatorProgramsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="U7S-wQ-pSG">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Calculator Program Description" textLabel="CDM-oU-VZB" style="IBUITableViewCellStyleDefault" id="gQK-xh-15e">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-oU-VZB">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aMR-F4-Xrj" id="MuP-OB-cs6"/>
+                            <outlet property="delegate" destination="aMR-F4-Xrj" id="QBQ-4X-Yai"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="200"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a6X-pP-JTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2115" y="570"/>
+        </scene>
     </scenes>
     <classes>
+        <class className="CalculatorProgramsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorProgramsTableViewController.h"/>
+        </class>
         <class className="CalculatorViewController" superclassName="RotatableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
-                <relationship kind="action" name="bufferedItemPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="stackedItemPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="display" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
             </relationships>
@@ -584,6 +627,7 @@
         <class className="GraphViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addToFavorites:"/>
                 <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
                 <relationship kind="outlet" name="programDisplay" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
