@@ -11,9 +11,11 @@
 
 @implementation GraphModel
 
-// Iterate across all x-values to get y-values for plotting
-// Return an NSNumber if the program contains no variables
-// Return NSDictionary of values otherwise
+- (void)setProgram:(id)program {
+    _program = program; // set program
+    [self.delegate modelChanged]; // notify of data change
+}
+
 - (id)calculatePointsWithXMinimum:(float)xMinimum
                      withXMaximum:(float)xMaximum
                      withYMinimum:(float)yMinimum
