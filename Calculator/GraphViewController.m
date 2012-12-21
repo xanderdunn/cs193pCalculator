@@ -18,9 +18,12 @@ ModelChanged>
 @property (nonatomic) GraphModel *graphModel;
 @property (nonatomic) IBOutlet GraphView *graphView;
 @property (nonatomic) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 @end
 
 @implementation GraphViewController
+@synthesize popoverController; // Prevent using instance variable
+
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 - (void)modelChanged {
@@ -155,6 +158,14 @@ ModelChanged>
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Favorites"]) {
+        // prevent multiple popovers
+        if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
+            UIStoryboardPopoverSegue *popoverSegue =
+            (UIStoryboardPopoverSegue *)segue;
+            [self.popoverController dismissPopoverAnimated:YES];
+            self.popoverController = popoverSegue.popoverController;
+        }
+        
         // set-up destination view controller
         NSArray *programs = [[NSUserDefaults standardUserDefaults]
                              objectForKey:FAVORITES_KEY];
@@ -166,6 +177,20 @@ ModelChanged>
 - (void)calculatorProgramsTableViewController:
 (CalculatorProgramsTableViewController *)sender choseProgram:(id)program {
     self.graphModel.program = program; // model's program set to favorite
+    // Remove popover after selection
+    [self.popoverController dismissPopoverAnimated:YES];
+    self.popoverController = nil; // Remove from memory
+}
+
+- (void)calculatorProgramsTableViewController:(CalculatorProgramsTableViewController *)sender deleteProgram:(id)program
+                                      atIndex:(NSInteger)index {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY]
+                                 mutableCopy];
+    [favorites removeObjectAtIndex:index];
+    [defaults setObject:favorites forKey:FAVORITES_KEY];
+    sender.programs = favorites; // set new programs array
+    [defaults synchronize];
 }
 
 @end

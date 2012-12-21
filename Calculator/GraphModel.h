@@ -10,12 +10,11 @@
 
 @class GraphModel;
 
-@protocol ModelChanged
+@protocol ModelChanged <NSObject>
 - (void)modelChanged; // called when the model's data changes
 @end
 
 @interface GraphModel : NSObject
-
 // Iterate across all x-values to get y-values for plotting
 // Return an NSNumber if the program contains no variables
 // Return NSDictionary of values otherwise

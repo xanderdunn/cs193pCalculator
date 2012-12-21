@@ -38,25 +38,24 @@
     return cell;
 }
 
-# define FAVORITES_KEY @"CalculatorGraphViewController.Favorites"
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:
 (UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:
 (NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Get user preferces and make the change
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY]
-                                     mutableCopy];
-        [favorites removeObjectAtIndex:indexPath.row];
-        [defaults setObject:favorites forKey:FAVORITES_KEY];
-#warning FIXME: Why does this crash?
+        id program = [self.programs objectAtIndex:indexPath.row];
+        [self.delegate calculatorProgramsTableViewController:self deleteProgram:program atIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:
-         UITableViewRowAnimationFade];
-        [defaults synchronize]; // write to disk
+         UITableViewRowAnimationFade]; // animate deletion
     }
+}
+
+ // allow deletion only if the delegate implements it
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.delegate respondsToSelector:@selector
+            (calculatorProgramsTableViewController:deleteProgram:atIndex:)];
 }
 
 #pragma mark - UITableViewDelegate

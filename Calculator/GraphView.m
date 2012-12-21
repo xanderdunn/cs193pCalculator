@@ -81,6 +81,8 @@
     UIGraphicsPushContext(context);
     
     // FIXME: Graph disappears when x-axis disappears at the top of the screen
+    // FIXME: Functions such as x*cos(x) and log(x*cos(x)) look bad.
+    //      need to plot points outside of the current view
     
     if ([data isKindOfClass:[NSArray class]] && [data count]) { // curve
 //        int j = 0;
