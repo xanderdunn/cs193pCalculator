@@ -10,17 +10,38 @@
 #import "GraphModel.h"  // GraphViewController's model
 #import "GraphView.h"   // GraphViewController's view
 #import "CalculatorModel.h" // Need a CalculatorModel class method
+#import "CalculatorProgramsTableViewController.h"
 
 @interface GraphViewController () <GraphViewDataSource,
-UISplitViewControllerDelegate>
+UISplitViewControllerDelegate, CalculatorProgramsTableViewControllerDelegate,
+ModelChanged>
 @property (nonatomic) GraphModel *graphModel;
 @property (nonatomic) IBOutlet GraphView *graphView;
-@property (weak, nonatomic) IBOutlet UILabel *programDisplay;
 @property (nonatomic) IBOutlet UIToolbar *toolbar;
 @end
 
 @implementation GraphViewController
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
+- (void)modelChanged {
+    NSString *newTitle = [CalculatorModel descriptionOfProgram:
+                          self.graphModel.program];
+    if (self.splitViewController) { // Update iPad title
+        UIBarButtonItem *titleButton;
+        // find the title button
+        for (UIBarButtonItem *button in self.toolbar.items) {
+            if (button.tag == 1) { // Get the one with the right tag
+                titleButton = button;
+                break;
+            }
+        }
+        titleButton.title = newTitle;
+    }
+    if (self.navigationController) { // Update iPhone title
+        self.navigationItem.title = newTitle;
+    }
+    [self.graphView setNeedsDisplay]; // show new graph
+}
 
 // Helper function for splitViewBarButonItem setter
 - (void)handleSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
@@ -61,29 +82,19 @@ UISplitViewControllerDelegate>
     [defaults setFloat:self.graphView.origin.x forKey:@"originx"];
     [defaults setFloat:self.graphView.origin.y forKey:@"originy"];
     [defaults setFloat:self.graphView.scale forKey:@"scale"];
-    // Set NSUserDefaultsValues
-    
+    [defaults synchronize]; // write to disk
 }
 
-- (void)viewDidLoad { // Disable pop-over appearance on swipe gesture
+- (void)viewDidLoad {
+    // Disable pop-over appearance on swipe gesture for iPad
     self.splitViewController.presentsWithGesture = NO;
-    if (!self.splitViewController) { // Upadte label after IBOutlet set
-        self.programDisplay.text = [@"y = " stringByAppendingString:
-                                    [CalculatorModel
-                                     descriptionOfProgram:
-                                     self.graphModel.program]];
-    }
+    self.graphModel.delegate = self; // I am the graphModel's delegate
+    [self modelChanged]; // update screen
     [super viewDidLoad];
 }
 
 - (void)programChanged:(id)program { // Update the graph on program change
-    self.graphModel.program = program;
-    self.programDisplay.text = [@"y = " stringByAppendingString:
-                                [CalculatorModel
-                                 descriptionOfProgram:program]];
-    if (self.splitViewController) { // Need to update only if on iPad
-        [self.graphView setNeedsDisplay];
-    }
+    self.graphModel.program = program; // set new program
 }
 
 - (GraphModel *)graphModel { // overload getter for lazy instantiation
@@ -119,12 +130,42 @@ UISplitViewControllerDelegate>
                                           withIncrement:sender.increment];
 }
 
-- (BOOL)shouldAutorotate {
+- (BOOL)shouldAutorotate { // rotate
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations { // rotate to all orientations
     return UIInterfaceOrientationMaskAll;
+}
+
+// Name of the key for the
+# define FAVORITES_KEY @"CalculatorGraphViewController.Favorites"
+
+- (IBAction)addToFavorites:(id)sender { // add program to array in user defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY]
+                                 mutableCopy];
+    if (!favorites) favorites = [NSMutableArray array]; // create if first call
+    if (![favorites containsObject:self.graphModel.program]) { // unique element
+        [favorites addObject:self.graphModel.program]; // add current program
+        [defaults setObject:favorites forKey:FAVORITES_KEY]; // add to dictionary
+        [defaults synchronize]; // write to disk
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Favorites"]) {
+        // set-up destination view controller
+        NSArray *programs = [[NSUserDefaults standardUserDefaults]
+                             objectForKey:FAVORITES_KEY];
+        [segue.destinationViewController setPrograms:programs];
+        [segue.destinationViewController setDelegate:self]; // I am the delegate
+    }
+}
+
+- (void)calculatorProgramsTableViewController:
+(CalculatorProgramsTableViewController *)sender choseProgram:(id)program {
+    self.graphModel.program = program; // model's program set to favorite
 }
 
 @end

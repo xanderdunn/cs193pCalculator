@@ -11,5 +11,5 @@
 
 @interface GraphViewController : UIViewController
 <SplitViewBarButtonItemPresenter>
-- (void)programChanged:(id)program;
+- (void)programChanged:(id)program; // Update screen when model changes
 @end
