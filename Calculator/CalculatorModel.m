@@ -37,21 +37,14 @@
     return [self.programStack copy];
 }
 
+#define TWO_OPERAND_OPERATIONS @[@"+", @"*", @"-", @"/"]
+#define ONE_OPERAND_OPERATIONS @[@"sin", @"cos", @"sqrt", @"+/-", @"log"]
+
 // Process all values in a program, turning it into an array of one single
 //
 + (NSMutableArray *)formattedProgram:(NSMutableArray *)program {
     NSMutableArray *result = program;
-    
-    // FIXME: Inefficient to place these sets inside the recursive function
-    // Set of operations taking two operands
-    NSSet *twoOperandOperations = [NSSet setWithObjects:
-                                   @"+", @"*", @"-", @"/", nil];
-    
-    // Set of operations taking one operand
-    NSSet *oneOperandOperations = [NSSet setWithObjects:
-                                   @"sin", @"cos", @"sqrt", @"+/-",
-                                   @"log", nil];
-    
+        
     id operandA;
     id operandB;
     id operation;
@@ -61,7 +54,7 @@
     
     for (i = 0; i < [program count]; i++) {
         operation = [program objectAtIndex:i];
-        if ([twoOperandOperations containsObject:operation]) {
+        if ([TWO_OPERAND_OPERATIONS containsObject:operation]) {
             if ((i - 1) < 0) { // Both operands are not in the stack
                 operandA = @"nan";
                 operandB = @"nan";
@@ -104,7 +97,7 @@
             
             [program replaceObjectAtIndex:i withObject:formattedString];
             result = [CalculatorModel formattedProgram:program];
-        } else if ([oneOperandOperations containsObject:operation]) {
+        } else if ([ONE_OPERAND_OPERATIONS containsObject:operation]) {
             if ((i - 1) < 0) { // Operand is not in the stack
                 operandA = @"0";
             } else {
@@ -236,7 +229,7 @@
 //  runProgram
 // Variables names are NSDictionary keys and variable values are objects
 + (NSNumber *)runProgram:(id)program
-usingVariableValues:(NSDictionary *)variableValues {
+     usingVariableValues:(NSDictionary *)variableValues {
     NSSet* usedVariables = [CalculatorModel variablesUsedInProgram:program];
     NSMutableArray *mutableProgram;
     
@@ -250,7 +243,8 @@ usingVariableValues:(NSDictionary *)variableValues {
             if ([obj isKindOfClass:[NSString class]]) { // NSString?
                 if ([usedVariables containsObject:obj]) { // variable?
                     if ([variableValues objectForKey:obj]) { // defined var?
-                        [mutableProgram replaceObjectAtIndex:i withObject:[variableValues objectForKey:obj]];
+                        [mutableProgram replaceObjectAtIndex:i withObject:
+                         [variableValues objectForKey:obj]];
                     }
                 }
             }
@@ -258,7 +252,6 @@ usingVariableValues:(NSDictionary *)variableValues {
     }
     
     double result = [self runProgram:[mutableProgram copy]];
-    
     return [NSNumber numberWithDouble:result];
 }
 

@@ -14,12 +14,11 @@
 - (void)removeLastItem;
 - (NSString *)description;
 
-@property (readonly) id program;
+@property (readonly) id program; // guaranteed to be a Property List
 
 + (double)runProgram:(id)program;
 + (NSNumber *)runProgram:(id)program
         usingVariableValues:(NSDictionary *)variableValues;
 + (NSSet *)variablesUsedInProgram:(id)program;
 + (NSString *)descriptionOfProgram:(id)program;
-
 @end
